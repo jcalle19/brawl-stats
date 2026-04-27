@@ -3,16 +3,17 @@ import StatsPage from '@/components/statsPage.jsx'
 
 const page = async ({params}) => {
     const id = process.env.TEST_ID; //params;
-    const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${process.env.TEST_ID}/battlelog`, {
+    const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${id}/battlelog`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
             Authorization: `Bearer ${process.env.BRAWL_API_KEY}`,
         },
     });
-    console.log(await result.json());
+    const data = await result.json();
+    console.log(data);
     return (
-        <StatsPage data={id}/>
+        <StatsPage data={data}/>
   )
 }
 
