@@ -1,19 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 import pLimit from 'p-limit';
+import { db_tools } from './lib/db_operations.js';
 dotenv.config();
 
 const limit = pLimit(25);
-
-const authClient = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
-
-const dbClient = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SECRET_KEY
-);
 
 let playerList = [process.env.TEST_ID];
 
@@ -29,7 +19,7 @@ const safe = (handler) => {
 
 const poll_player_data = async () => {
     churn_player_list(playerList);
-    setTimeout(poll_player_data, 10000/*2700000*/);
+    setTimeout(poll_player_data, 1500000/*2700000*/);
 }
 
 const churn_player_list = async (players) => {
@@ -37,9 +27,9 @@ const churn_player_list = async (players) => {
         players.map(player =>
             limit(async () => {
                 const battle_log = await get_brawl_data(player);
-                const recentTime = await db_select_recent_time(player);
-                //trim_games(parse_battle_time(recentTime), battle_log.items);
-                console.log(recentTime, parse_battle_time(recentTime)); //This is where you submit the matches to database
+                const recentTime = await db_tools.db_select_recent_time(player);
+                console.log(trim_games(parse_battle_time(recentTime), battle_log.items));
+                //This is where you submit the matches to database
             })
     ))
 }
@@ -48,7 +38,7 @@ const connection = async (io, socket) => {
 
     const { data: { user }, error } =
         await authClient.auth.getUser(token);
-
+    //disable this
     if (error || !user) {
         socket.disconnect();
         return
@@ -60,30 +50,9 @@ const connection = async (io, socket) => {
     io.to(socket.id).emit('connected', true);
 }
 
-const db_insertion = async (id, newInfo, temp_cards) => {
-    const { error } = await dbClient.from('cards')
-        .insert({
-            user_id: id,
-            attributes: newInfo,
-            value: Math.floor(Math.random() * 150000) + 1,
-            chance: 0,
-        });
-    if (error) console.log(error);
-    temp_cards.length = 0;
-}
-
-const db_select_recent_time = async (playerId) => {
-    const {data, error} = await dbClient
-        .from('players')
-        .select('most_recent_match')
-        .eq('id', playerId)
-        .single();
-    return (data ? data.most_recent_match : error);
-}
-
 const get_brawl_data = async (playerId) => {
     const id = process.env.TEST_ID; //params;
-    const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${id}/battlelog`, {
+    const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${id.replace('#', '')}/battlelog`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -112,8 +81,6 @@ const parse_battle_time = (battleTime) => {
 }
 
 export const util = {
-    dbClient,
-    authClient,
     safe,
     connection,
     get_brawl_data,
