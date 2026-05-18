@@ -4,8 +4,8 @@ import { db_tools } from './lib/db_operations.js';
 dotenv.config();
 
 const limit = pLimit(25);
-
-let playerList = [process.env.TEST_ID];
+const playerList = [process.env.TEST_ID];
+const untrackedMatches = [];
 
 const safe = (handler) => {
     return async (...args) => {
@@ -19,16 +19,18 @@ const safe = (handler) => {
 
 const poll_player_data = async () => {
     churn_player_list(playerList);
-    setTimeout(poll_player_data, 1500000/*2700000*/);
+    setTimeout(poll_player_data, 10000/*2700000*/);
 }
 
+c
 const churn_player_list = async (players) => {
+    let untrackedMatches = [];
     return Promise.all(
         players.map(player =>
             limit(async () => {
                 const battle_log = await get_brawl_data(player);
                 const recentTime = await db_tools.db_select_recent_time(player);
-                console.log(trim_games(parse_battle_time(recentTime), battle_log.items));
+                untrackedMatches.push(...trim_games(player, parse_battle_time(recentTime), battle_log.items));
                 //This is where you submit the matches to database
             })
     ))
@@ -64,12 +66,14 @@ const get_brawl_data = async (playerId) => {
 }
 
 //grab only untracked games from battlelog
-const trim_games = (mostRecentTime, games) => {
+const trim_games = (player, mostRecentTime, games) => {
     const untracked = [];
     let currTime;
     for(let i = 0; i < games.length; i++) {
         currTime = parse_battle_time(games[i].battleTime);
-        if (currTime > mostRecentTime) untracked.push(games[i]);
+        if (currTime > mostRecentTime) {
+            untracked.push(db_tools.db_create_match_object(player, games[i]));
+        }
         else break;
     }
     return untracked;
