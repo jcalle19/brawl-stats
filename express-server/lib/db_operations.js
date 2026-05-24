@@ -21,34 +21,61 @@ const db_select_recent_time = async (playerId) => {
     return (data ? data.most_recent_match : error);
 }
 
-const db_match_insert = async (playerId, matches) => {
+const db_match_insert = async (matches) => {
     const {data, error} = await dbClient
         .from('matches')
-        .insert(matches);
-    return (error ? error : data);
+        .insert(matches)
+        .select();
+    return {data, error};
 }
 
 const db_create_match_object = (player, match) => {
+    const parsedTeams = parse_team_brawlers(player, match.battle.teams);
+    console.log(parsedTeams);
     return {
         id: `${match.battleTime}${player}`,
         mode: match.event.mode,
-        brawler: parse_player_brawler(player, match.battle.teams),
+        brawler: parsedTeams.playerBrawler,
         result: match.battle.result,
         mvp: player === match.battle.starPlayer?.tag ? true : false,
         map: match.event.map,
         battle_time: match.battleTime,
         player_id: player,
+        team1: parsedTeams.playerTeam[0],
+        team2: parsedTeams.playerTeam[1],
+        enemy1: parsedTeams.enemyTeam[0],
+        enemy2: parsedTeams.enemyTeam[1],
+        enemy3: parsedTeams.enemyTeam[2]
     };
 }
 
-const parse_player_brawler = (targetId, teams) => {
+const parse_team_brawlers = (targetId, teams) => {
+    let playerBrawler = '';
+    let friendly = [];
+    let enemy = [];
     let teamsCombined = [...teams[0], ...teams[1]]
-    for (const player of teamsCombined) {
+    for (const [index, player] of teamsCombined.entries()) {
         if (player.tag === targetId) {
-            return player.brawler.name;
+            playerBrawler = player.brawler.name;
+            if (index <= 2) {
+                teams[0].splice(index, 1);
+                friendly = teams[0];
+                enemy = teams[1];
+            } else {
+                teams[1].splice(index - 3, 1);
+                friendly = teams[1];
+                enemy = teams[0];
+            }
+            break;
         }
     }
+    return {
+        playerBrawler: playerBrawler,
+        playerTeam: friendly,
+        enemyTeam: enemy,
+    }
 }
+
 export const db_tools = {
     authClient,
     dbClient,

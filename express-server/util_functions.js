@@ -6,6 +6,7 @@ dotenv.config();
 const limit = pLimit(25);
 const playerList = [process.env.TEST_ID];
 const untrackedMatches = [];
+const matchBackup = [];
 
 const safe = (handler) => {
     return async (...args) => {
@@ -22,15 +23,26 @@ const poll_player_data = async () => {
     setTimeout(poll_player_data, 10000/*2700000*/);
 }
 
-c
+//maybe optimize with lazy polling
+const poll_untracked_matches = async () => {
+
+    if (untrackedMatches.length > 0) {
+        console.log(`inserting ${untrackedMatches.length} matches to database`)
+        //let inserted = await db_tools.db_match_insert(untrackedMatches);
+        //console.log(inserted.error);
+        //possibly add fallback in case of failed insertion
+        untrackedMatches.length = 0;
+    }
+    setTimeout(poll_untracked_matches, 5000);
+}
+
 const churn_player_list = async (players) => {
-    let untrackedMatches = [];
     return Promise.all(
         players.map(player =>
             limit(async () => {
-                const battle_log = await get_brawl_data(player);
+                const battle_log = (await get_brawl_data(player)).items;
                 const recentTime = await db_tools.db_select_recent_time(player);
-                untrackedMatches.push(...trim_games(player, parse_battle_time(recentTime), battle_log.items));
+                untrackedMatches.push(...trim_games(player, parse_battle_time(recentTime), battle_log));
                 //This is where you submit the matches to database
             })
     ))
@@ -71,12 +83,12 @@ const trim_games = (player, mostRecentTime, games) => {
     let currTime;
     for(let i = 0; i < games.length; i++) {
         currTime = parse_battle_time(games[i].battleTime);
-        if (currTime > mostRecentTime) {
+        if (true /*currTime > mostRecentTime*/) {
             untracked.push(db_tools.db_create_match_object(player, games[i]));
         }
         else break;
     }
-    return untracked;
+    return untracked.reverse();
 }
 
 const parse_battle_time = (battleTime) => {
@@ -90,4 +102,5 @@ export const util = {
     get_brawl_data,
     parse_battle_time,
     poll_player_data,
+    poll_untracked_matches,
 }

@@ -1,0 +1,12 @@
+.match-banner-parent {
+    width: 50%;
+}
+
+.match-banner-parent *{
+    border: 1px solid red;
+}
+
+.brawler-icon-parenvt {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+}
