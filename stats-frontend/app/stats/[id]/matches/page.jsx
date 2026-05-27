@@ -7,10 +7,9 @@ const page = async ({params}) => {
     const resolvedParams = await params;
     let client = createClient();
     const { data } = await client.from('matches').select('*').eq('player_id', `#${resolvedParams.id}`);
-    console.log(data);
     return (
         <div>{resolvedParams.id}
-            <MatchBanner/>
+            <StatsPage data={data}/>
         </div>
   )
 }

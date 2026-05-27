@@ -28,8 +28,8 @@ const poll_untracked_matches = async () => {
 
     if (untrackedMatches.length > 0) {
         console.log(`inserting ${untrackedMatches.length} matches to database`)
-        //let inserted = await db_tools.db_match_insert(untrackedMatches);
-        //console.log(inserted.error);
+        let inserted = await db_tools.db_match_insert(untrackedMatches);
+        console.log(inserted.error);
         //possibly add fallback in case of failed insertion
         untrackedMatches.length = 0;
     }
@@ -83,7 +83,7 @@ const trim_games = (player, mostRecentTime, games) => {
     let currTime;
     for(let i = 0; i < games.length; i++) {
         currTime = parse_battle_time(games[i].battleTime);
-        if (true /*currTime > mostRecentTime*/) {
+        if (currTime > mostRecentTime) {
             untracked.push(db_tools.db_create_match_object(player, games[i]));
         }
         else break;

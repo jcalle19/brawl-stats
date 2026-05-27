@@ -31,7 +31,6 @@ const db_match_insert = async (matches) => {
 
 const db_create_match_object = (player, match) => {
     const parsedTeams = parse_team_brawlers(player, match.battle.teams);
-    console.log(parsedTeams);
     return {
         id: `${match.battleTime}${player}`,
         mode: match.event.mode,
