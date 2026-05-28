@@ -1,5 +1,5 @@
 export const portraitURLs = {
-    'SHELLY': 'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlVE8ScBv6parfz2OgK9h5TkJ3iq48oAvU7PYd',
+    'SHELLY': 'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlJrPZgtis5YeTujP6wW7mCLvQqkHS8ahO2IFX',
     'COLT':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlLP31tmZTJujwVURqm8lvcdxbhygXKnrfOiL1',
     'NITA':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlQ4Kgt2qiMpXzIfKSkvVhjlOs9ZGaTFw8byco',
     'BULL':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlISJS1dLepgUGRuBrTlxksVSf4mX0c1oNEZKj',
@@ -41,7 +41,7 @@ export const portraitURLs = {
     'LOU':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQloKcbyOBflao7cIKrAvSBOZY8gUTNXVF4tefD',
     'BYRON':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQl7fHDL8WckSaifuL259vxF1CIbhK6lNo4wnsM',
     'EDGAR':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQliivj1RxDVhQlLIZuAtP8Y2vGNzoMyC9S0wdm',
-    'COLONEL RUFFS':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlrPtv91EaSuVdRyqTQUtiYfKIcGwn4NhzLomJ',
+    'RUFFS':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlrPtv91EaSuVdRyqTQUtiYfKIcGwn4NhzLomJ',
     'STU':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlM5aHgLVYadnIOJi8NV3CXEwpgjl5HxWerKGk',
     'BELLE':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlhwsyC7neST8XMFmrYg6D1zwK4akb9AjfnqCQ',
     'SQUEAK':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQliq0iSJxDVhQlLIZuAtP8Y2vGNzoMyC9S0wdm',
@@ -92,6 +92,7 @@ export const portraitURLs = {
     'ALLI':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQliV0Pt5xDVhQlLIZuAtP8Y2vGNzoMyC9S0wdm',
     'TRUNK':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlGX995IoAsW174L5atoZhuHgvPbxfqUy62X9n',
     'PIERCE':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQltg4eQVhDKiFXAZ3uy48fU6mr0Llxk27ozcVJ',
+    'GLOWY': 'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlamflPPN78Hlp4wCOP9EV02hAJugBRFn1Skyb',
     'MINA': 'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlg51sfFORDgBAjh946GZdEbt3cx2OiPz7s1Ku',
     'ZIGGY':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQleJHgIn8nkCBtjWXv4OYe5b6MTw9VzpNlIAa2',
     'LUMI':'https://ai6j31goj4.ufs.sh/f/iNpc9vxDVhQlnvFYp7AL3Cl6jxDcRZ9JafoSOXniHkVWhY4b',

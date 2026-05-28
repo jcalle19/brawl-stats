@@ -1,12 +1,30 @@
 .match-banner-parent {
-    width: 50%;
+    width: 100%;
+    max-width: 50vw;
+    height: min(fit-content, 4vmax);
+    border: 1px solid yellow;
 }
 
 .match-banner-parent *{
-    border: 1px solid red;
+    border: 0px solid red;
 }
 
 .brawler-icon-parent {
-    height: 100%;
+    width: 100%;
     aspect-ratio: 1 / 1;
+}
+
+.text-row {
+    border: 1px solid pink;
+    line-height: 1rem;
+    gap: 0;
+}
+
+.icon-row {
+    position: relative;
+    max-width: 50vw;
+    max-height: fit-content;
+    bottom: 0px;
+    border: 1px solid green;
+    aspect-ratio: 6 / 1;
 }

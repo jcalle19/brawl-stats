@@ -2,9 +2,15 @@
 import React from 'react'
 import MatchBanner from './matchBanner.jsx';
 
-const StatsPage = ({data}) => {
+const MatchBox = ({data}) => {
     return (
-        <div style={{color: 'white', width: '100%', height: '100%'}}>
+        <div style={{
+                color: 'white', 
+                width: '50%', 
+                height: '100%', 
+                border: '1px dashed purple',
+                overflow: 'auto',
+            }}>
             {
                 data.map((item, index) => 
                     <div key={index} style={{marginBottom: '5px'}}>
@@ -16,4 +22,4 @@ const StatsPage = ({data}) => {
     )
 }
 
-export default StatsPage
+export default MatchBox;
