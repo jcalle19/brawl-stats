@@ -73,8 +73,13 @@ const get_brawl_data = async (playerId) => {
             Authorization: `Bearer ${process.env.BRAWL_API_KEY}`,
         },
     });
-    const data = await result.json();
-    return data;
+    try {
+        const data = await result.json();
+        return data;
+    } catch (e) {
+        console.log(e, result);
+    } 
+    return undefined;
 }
 
 //grab only untracked games from battlelog

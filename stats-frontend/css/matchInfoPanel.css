@@ -1,0 +1,8 @@
+.test-border {
+    border: 1px solid blue;
+}
+
+#info-panel-left-column {
+    display: flex;
+    flex-direction: column;
+}

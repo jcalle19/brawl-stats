@@ -6,9 +6,10 @@ const MatchBox = ({data}) => {
     return (
         <div style={{
                 color: 'white', 
-                width: '50%', 
+                width: '100%', 
                 height: '100%', 
                 border: '1px dashed purple',
+                padding: '10%',
                 overflow: 'auto',
             }}>
             {

@@ -1,15 +1,17 @@
 import React from 'react'
 import { createClient } from '@/lib/supabase/browserClient.js'
 import MatchBox from '@/components/matchBox.jsx'
-import MatchBanner from '@/components/matchBanner.jsx'
+import MatchInfoPanel from '@/components/matchInfoPanel'
 
 const page = async ({params}) => {
     const resolvedParams = await params;
     let client = createClient();
-    const { data } = await client.from('matches').select('*').eq('player_id', `#${resolvedParams.id}`);
+    let { data } = await client.from('matches').select('*').eq('player_id', `#${resolvedParams.id}`);
+    const data_ordered = data.reverse();
     return (
-        <div style={{maxHeight: '100%'}}>
-            <MatchBox data={data}/>
+        <div className='grid grid-cols-2 gap-0' style={{maxHeight: '100%'}}>
+            <MatchBox data={data_ordered}/>
+            <MatchInfoPanel selectedMatch={{map: 'placeholder'}}/>
         </div>
   )
 }
