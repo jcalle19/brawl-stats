@@ -1,7 +1,7 @@
 import React from 'react'
 import { createClient } from '@/lib/supabase/browserClient.js'
 import MatchBox from '@/components/matchBox.jsx'
-import MatchInfoPanel from '@/components/matchInfoPanel'
+import MatchInfoPanel from '@/components/match-info-panel/matchInfoPanel'
 
 const page = async ({params}) => {
     const resolvedParams = await params;

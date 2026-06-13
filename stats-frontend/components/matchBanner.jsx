@@ -1,14 +1,24 @@
 import React from 'react'
+import { fetchBrawlerData, fetchMapData } from '@/lib/supabase/browserClient.js'
+import { bundledStats } from '@/lib/components/matchFunctions.js'
 import '@/css/matchBanner.css'
 import { useMatchContext } from '@/contexts/matchContext.jsx';
 import {portraitURLs} from '@/public/portaitURLMap.js'
 import BrawlIcons from './brawlIcons.jsx'
 
 const MatchBanner = ({matchData}) => {
-    const {setSelectedMatch} = useMatchContext();
-
+    const {setSelectedMatch, setFocusedMapStats} = useMatchContext();
+    //optimize
+    const handleClick = async (matchData) => {
+        setSelectedMatch(matchData);
+        //brawler stats on map
+        let brawlerData = fetchBrawlerData(matchData);
+        let mapData = fetchMapData(matchData);
+        console.log(brawlerData.data, mapData.data);//, mapError);
+        setFocusedMapStats(bundledStats(brawlerData, mapData));
+    }
     return (
-        <div className='grid grid-rows-[2rem, 2rem, fit-content] match-banner-parent' onClick={()=>setSelectedMatch(matchData)}>
+        <div className='grid grid-rows-[2rem, 2rem, fit-content] match-banner-parent' onClick={()=>handleClick(matchData)}>
             <div className='text-row row-start-1'>
                 <div>{matchData.result}</div>
             </div>
