@@ -9,7 +9,7 @@ const MatchBox = ({data}) => {
                 width: '100%', 
                 height: '100%', 
                 border: '1px dashed purple',
-                padding: '10%',
+                padding: '5%',
                 overflow: 'auto',
             }}>
             {

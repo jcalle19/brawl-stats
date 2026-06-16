@@ -7,6 +7,7 @@ export function createClient() {
 }
 
 export async function fetchBrawlerData(matchData) {
+  let client = createClient();
   let brawlerData = await client.from('player_brawler_info')
                           .select('brawler, wins, losses, mvps')
                           .eq('player_id', matchData.player_id)
@@ -18,6 +19,7 @@ export async function fetchBrawlerData(matchData) {
 }
 
 export async function fetchMapData(matchData) {
+  let client = createClient();
   let mapData = await client.from('player_map_info')
                           .select('wins, losses, mvps')
                           .eq('player_id', matchData.player_id)

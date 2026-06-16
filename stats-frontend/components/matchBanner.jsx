@@ -8,15 +8,14 @@ import BrawlIcons from './brawlIcons.jsx'
 
 const MatchBanner = ({matchData}) => {
     const {setSelectedMatch, setFocusedMapStats} = useMatchContext();
-    //optimize
+
     const handleClick = async (matchData) => {
+        let brawlerData = await fetchBrawlerData(matchData);
+        let mapData = await fetchMapData(matchData);
         setSelectedMatch(matchData);
-        //brawler stats on map
-        let brawlerData = fetchBrawlerData(matchData);
-        let mapData = fetchMapData(matchData);
-        console.log(brawlerData.data, mapData.data);//, mapError);
         setFocusedMapStats(bundledStats(brawlerData, mapData));
     }
+
     return (
         <div className='grid grid-rows-[2rem, 2rem, fit-content] match-banner-parent' onClick={()=>handleClick(matchData)}>
             <div className='text-row row-start-1'>
