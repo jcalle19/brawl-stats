@@ -7,9 +7,10 @@
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-foreground: var(--foreground);/*
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,9 +32,20 @@ body,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 body * {
   box-sizing: border-box;
+}
+
+.striped-bg {
+  background: repeating-linear-gradient(45deg, black, black 5px, rgb(18, 18, 18) 5px, rgb(18, 18, 18) 10px);
+  box-shadow: 0px 0px 10px black;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

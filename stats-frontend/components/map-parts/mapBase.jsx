@@ -24,7 +24,7 @@ const MapBase = () => {
         let rotY = xCoord / (rotateRefInfo.current.width/2);
         let rotX = -1 * yCoord / (rotateRefInfo.current.height/2);
 
-        rotateRef.current.style.transform = `rotateX(${rotX * 25}deg) rotateY(${rotY * -25}deg)`;
+        rotateRef.current.style.transform = `rotateX(${rotX * -25}deg) rotateY(${rotY * -25}deg)`;
     }
 
     const handleMouseExit = () => {

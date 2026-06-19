@@ -1,9 +1,9 @@
 #map-base-parent {
     position: absolute;
-    left: max(100px, 20%);
+    left: 50%;
     top: 55%;
     transform: translate(-50%, -50%);
-    width: 30vmin;
+    width: 80%;
     aspect-ratio: 21 / 33;
 }
 
@@ -43,5 +43,5 @@
   background-repeat: no-repeat;
   background-position: center;
   transform: translateZ(5px);
-  opacity: 75%;
+  opacity: 80%;
 }
