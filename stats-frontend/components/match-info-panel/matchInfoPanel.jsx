@@ -35,9 +35,9 @@ const MatchInfoPanel = () => {
                                 </div>
     */
     return (
-        <div style={{position: 'relative', width: '100%', height: '100%', overflow: 'hidden'}}>
-            <div className='grid grid-rows-[2fr_1fr]' style={{width: '100%', height: '100%', padding: '2%'}}>
-                <div id='info-panel-main' className='min-h-0 grid grid-cols-[1fr_8fr]' style={{width: '100%', height: '100%'}}>
+        <div className='relative w-full h-full overflow-hidden'>
+            <div className='relative w-full h-full p-[2%] grid grid-rows-[2fr_1fr]'>
+                <div id='info-panel-main' className='relative min-h-0 w-full h-full grid grid-cols-[1fr_8fr]'>
                     <div id='info-panel-players' className='min-h-0 w-full h-full grid grid-rows-[auto_1fr_1fr_1fr_1fr_1fr]'>
                         <div>
                             <BrawlIcons src={portraitURLs[selectedMatch.brawler]} width={'100%'} size={'20vw'}/>
@@ -58,17 +58,17 @@ const MatchInfoPanel = () => {
                             <BrawlIcons src={portraitURLs[selectedMatch?.enemy3?.brawler.name]} width={'100%'} size={'15vw'}/>
                         </div>
                     </div>
-                    <div className='grid grid-cols-[2fr_3fr] relative w-full h-full min-w-0 min-h-0'>
-                        <div className='relative'>
-                            <div id='map-container' className='col-start-1 striped-bg'>
+                    <div className='relative w-full h-full min-w-0 min-h-0 grid grid-cols-[2fr_3fr]'>
+                        <div className='relative h-full max-h-full'>
+                            <div id='map-container' className='col-start-1 striped-bg max-h-full'>
                                 <div id='map-banner'>
                                     <div id='map-banner-text'>{selectedMatch?.map}</div>
                                 </div>
                                 <MapBase/>
                             </div>
                         </div>
-                        <div className='grid grid-rows-[1fr_3fr] relative w-full h-full min-w-0 min-h-0 '>
-                            <div className='grid grid-cols-3 max-h-full pt-5'>
+                        <div className='relative w-full min-w-0 min-h-0 grid grid-rows-[1fr_3fr] overflow-y-auto'>
+                            <div className='grid grid-cols-3 h-full pt-5'>
                                 <div className='grid grid-rows-[1fr_5fr] max-h-full'>
                                     <div className='chart-title'>{selectedMatch?.map} W/L</div>
                                     <StatsDonutChart
@@ -94,7 +94,7 @@ const MatchInfoPanel = () => {
                                     />
                                 </div>
                             </div>
-                            <div className='w-full h-full test-border'>hi</div>
+                            <div className='relative w-full top-0 h-full' style={{border: '1px solid red'}}>date, duration, result, rank, elo change, mode</div>
                         </div>
                     </div>
                 </div>

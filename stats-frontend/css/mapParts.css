@@ -3,7 +3,7 @@
     left: 50%;
     top: 55%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    height: 80%;
     aspect-ratio: 21 / 33;
 }
 
