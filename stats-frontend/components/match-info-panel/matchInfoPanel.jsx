@@ -3,37 +3,14 @@ import React from 'react'
 import { useMatchContext } from '@/contexts/matchContext'
 import { portraitURLs } from '@/public/portaitURLMap.js'
 import BrawlIcons from '@/components/brawlIcons'
-import MapBase from '@/components/map-parts/mapBase'
+import InfoMapColumn from '@/components/match-info-panel/infoMapColumn'
+import InfoRightColumn from '@/components/match-info-panel/infoRightColumn'
 import StatsPieChart from '@/components/match-info-panel/statsPieChart'
-import StatsDonutChart from '@/components/match-info-panel/statsDonutChart'
 import '@/css/matchInfoPanel.css'
 
 const MatchInfoPanel = () => {
     const {selectedMatch, focusedMapStats} = useMatchContext();
-    console.log(focusedMapStats);
-    /*
-    <div className='grid grid-rows-[1fr_5fr]'>
-                                    <div className='chart-title'>{selectedMatch?.map} W/L</div>
-                                    <StatsDonutChart
-                                        stats={[focusedMapStats.mapWins, focusedMapStats.mapLosses]}
-                                        colors={['#80EF80', 'red']}
-                                    />
-                                </div>
-                                <div className='grid grid-rows-[1fr_5fr]'>
-                                    <div className='chart-title'>{selectedMatch?.brawler} Pickrate</div>
-                                    <StatsDonutChart
-                                        stats={[focusedMapStats.brawlerTotalGames, focusedMapStats.mapTotalGames - focusedMapStats.brawlerTotalGames]}
-                                        colors={['purple','black']}
-                                    />
-                                </div>
-                                <div className='grid grid-rows-[1fr_5fr]'>
-                                    <div className='chart-title'>{selectedMatch?.brawler} W/L</div>
-                                    <StatsDonutChart
-                                        stats={[focusedMapStats.brawlerWins, focusedMapStats.brawlerLosses]}
-                                        colors={['orange', 'black']}
-                                    />
-                                </div>
-    */
+
     return (
         <div className='relative w-full h-full overflow-hidden'>
             <div className='relative w-full h-full p-[2%] grid grid-rows-[2fr_1fr]'>
@@ -59,43 +36,8 @@ const MatchInfoPanel = () => {
                         </div>
                     </div>
                     <div className='relative w-full h-full min-w-0 min-h-0 grid grid-cols-[2fr_3fr]'>
-                        <div className='relative h-full max-h-full'>
-                            <div id='map-container' className='col-start-1 striped-bg max-h-full'>
-                                <div id='map-banner'>
-                                    <div id='map-banner-text'>{selectedMatch?.map}</div>
-                                </div>
-                                <MapBase/>
-                            </div>
-                        </div>
-                        <div className='relative w-full min-w-0 min-h-0 grid grid-rows-[1fr_3fr] overflow-y-auto'>
-                            <div className='grid grid-cols-3 h-full pt-5'>
-                                <div className='grid grid-rows-[1fr_5fr] max-h-full'>
-                                    <div className='chart-title'>{selectedMatch?.map} W/L</div>
-                                    <StatsDonutChart
-                                        stats={[focusedMapStats.mapWins, focusedMapStats.mapLosses]}
-                                        colors={['mediumseagreen', 'black']}
-                                        displayNum={`${focusedMapStats.mapWL.toFixed(2)}`}
-                                    />
-                                </div>
-                                <div className='grid grid-rows-[1fr_5fr] max-h-full'>
-                                    <div className='chart-title'>{selectedMatch?.brawler} Pickrate</div>
-                                    <StatsDonutChart
-                                        stats={[focusedMapStats.brawlerTotalGames, focusedMapStats.mapTotalGames - focusedMapStats.brawlerTotalGames]}
-                                        colors={['purple','black']}
-                                        displayNum={`${(focusedMapStats.brawlerTotalGames/focusedMapStats.mapTotalGames).toFixed(2)}`}
-                                    />
-                                </div>
-                                <div className='grid grid-rows-[1fr_5fr] max-h-full'>
-                                    <div className='chart-title'>{selectedMatch?.brawler} W/L</div>
-                                    <StatsDonutChart
-                                        stats={[focusedMapStats.brawlerWins, focusedMapStats.brawlerLosses]}
-                                        colors={['orange', 'black']}
-                                        displayNum={`${focusedMapStats.brawlerWL.toFixed(2)}`}
-                                    />
-                                </div>
-                            </div>
-                            <div className='relative w-full top-0 h-full' style={{border: '1px solid red'}}>date, duration, result, rank, elo change, mode</div>
-                        </div>
+                        <InfoMapColumn mapName={selectedMatch?.map}/>
+                        <InfoRightColumn selected={selectedMatch} focused={focusedMapStats}/>
                     </div>
                 </div>
                 <div id='stats-section' className='grid grid-cols-[3fr_2fr] striped-bg'>

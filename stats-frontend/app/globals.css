@@ -43,6 +43,27 @@ body * {
   box-shadow: 0px 0px 10px black;
 }
 
+.stats-bg {
+  background: radial-gradient(rgb(10, 10, 10));
+  border: 1px solid rgba(60, 179, 114, 0.15);
+  border-radius: 5px;
+}
+
+.green {
+  background-color: mediumseagreen;
+  border-radius: 5px;
+}
+
+.purple {
+  background-color: purple;
+  border-radius: 5px;
+}
+
+.orange {
+  background-color: orange;
+  border-radius: 5px;
+}
+
 .absolute-center {
   position: absolute;
   top: 50%;
