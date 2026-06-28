@@ -16,3 +16,12 @@ export function bundledStats(brawlerData, mapData) {
     }
 }
 
+export const parse_battle_time = (battleTime) => {
+    const formatted = battleTime?.replace(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6');
+    let date = new Date(formatted);
+    return `${date.getMonth() + 1} / ${date.getDate()}`;
+}
+
+export const parse_battle_duration = (duration) => {
+    return `${Math.floor(duration / 60)}:${duration % 60}`;
+}

@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --uiRed: rgb(255, 71, 71);
+  --uiGreen: rgb(69, 160, 110);
 }
 
 @theme inline {
@@ -50,7 +52,12 @@ body * {
 }
 
 .green {
-  background-color: mediumseagreen;
+  background-color: var(--uiGreen);
+  border-radius: 5px;
+}
+
+.red {
+  background-color: var(--uiRed);
   border-radius: 5px;
 }
 

@@ -40,7 +40,7 @@ const churn_player_list = async (players) => {
     return Promise.all(
         players.map(player =>
             limit(async () => {
-                const battle_log = (await get_brawl_data(player)).items;
+                const battle_log = (await get_battle_log(player)).items;
                 const recentTime = await db_tools.db_select_recent_time(player);
                 untrackedMatches.push(...trim_games(player, parse_battle_time(recentTime), battle_log));
                 //This is where you submit the matches to database
@@ -64,7 +64,7 @@ const connection = async (io, socket) => {
     io.to(socket.id).emit('connected', true);
 }
 
-const get_brawl_data = async (playerId) => {
+const get_battle_log = async (playerId) => {
     const id = process.env.TEST_ID; //params;
     const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${id.replace('#', '')}/battlelog`, {
         method: 'GET',
@@ -104,7 +104,7 @@ const parse_battle_time = (battleTime) => {
 export const util = {
     safe,
     connection,
-    get_brawl_data,
+    get_battle_log,
     parse_battle_time,
     poll_player_data,
     poll_untracked_matches,

@@ -39,6 +39,7 @@ const db_create_match_object = (player, match) => {
         mvp: player === match.battle.starPlayer?.tag ? true : false,
         map: match.event.map,
         battle_time: match.battleTime,
+        duration: match.battle.duration,
         player_id: player,
         team1: parsedTeams.playerTeam[0],
         team2: parsedTeams.playerTeam[1],

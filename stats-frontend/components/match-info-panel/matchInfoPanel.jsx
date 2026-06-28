@@ -14,28 +14,8 @@ const MatchInfoPanel = () => {
     return (
         <div className='relative w-full h-full overflow-hidden'>
             <div className='relative w-full h-full p-[2%] grid grid-rows-[2fr_1fr]'>
-                <div id='info-panel-main' className='relative min-h-0 w-full h-full grid grid-cols-[1fr_8fr]'>
-                    <div id='info-panel-players' className='min-h-0 w-full h-full grid grid-rows-[auto_1fr_1fr_1fr_1fr_1fr]'>
-                        <div>
-                            <BrawlIcons src={portraitURLs[selectedMatch.brawler]} width={'100%'} size={'20vw'}/>
-                        </div>
-                        <div className='player-portrait'>
-                            <BrawlIcons src={portraitURLs[selectedMatch?.team1?.brawler.name]} width={'100%'} size={'15vw'}/>
-                        </div>
-                        <div className='player-portrait'>
-                            <BrawlIcons src={portraitURLs[selectedMatch?.team2?.brawler.name]} width={'100%'} size={'15vw'}/>
-                        </div>
-                        <div className='player-portrait'>
-                            <BrawlIcons src={portraitURLs[selectedMatch?.enemy1?.brawler.name]} width={'100%'} size={'15vw'}/>
-                        </div>
-                        <div className='player-portrait'>
-                            <BrawlIcons src={portraitURLs[selectedMatch?.enemy2?.brawler.name]} width={'100%'} size={'15vw'}/>
-                        </div>
-                        <div className='player-portrait'>
-                            <BrawlIcons src={portraitURLs[selectedMatch?.enemy3?.brawler.name]} width={'100%'} size={'15vw'}/>
-                        </div>
-                    </div>
-                    <div className='relative w-full h-full min-w-0 min-h-0 grid grid-cols-[2fr_3fr]'>
+                <div id='info-panel-main' className='relative min-h-0 w-full h-full'>
+                    <div className='relative w-full h-full min-w-0 min-h-0 grid grid-cols-[2fr_3fr] gap-3'>
                         <InfoMapColumn mapName={selectedMatch?.map}/>
                         <InfoRightColumn selected={selectedMatch} focused={focusedMapStats}/>
                     </div>

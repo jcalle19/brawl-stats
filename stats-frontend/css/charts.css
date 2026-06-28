@@ -16,10 +16,6 @@
     user-select: none;
 }
 
-#doughnut-chart-container:hover {
-    box-shadow: 0px 0px 5px white;
-}
-
 #doughnut-chart-container:hover::before {
     transform: scale(1.5);
 }
