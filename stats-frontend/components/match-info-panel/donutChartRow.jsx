@@ -5,7 +5,7 @@ const DonutChartRow = ({selected, focused}) => {
   return (
     <div className='relative grid grid-cols-3 min-h-0'>
         <div className='grid grid-rows-[1fr_5fr] h-full'>
-            <div className='chart-title'>{selected.map} W/L</div>
+            <div className='chart-title text-nowrap'>{selected.map} W/L</div>
             <StatsDonutChart
                 stats={[focused.mapWins, focused.mapLosses]}
                 colors={['mediumseagreen', 'black']}
@@ -13,7 +13,7 @@ const DonutChartRow = ({selected, focused}) => {
             />
         </div>
         <div className='grid grid-rows-[1fr_5fr] h-full'>
-            <div className='chart-title'>{selected.brawler} Pickrate</div>
+            <div className='chart-title text-nowrap'>{selected.brawler} Pickrate</div>
             <StatsDonutChart
                 stats={[focused.brawlerTotalGames, focused.mapTotalGames - focused.brawlerTotalGames]}
                 colors={['purple','black']}
@@ -21,7 +21,7 @@ const DonutChartRow = ({selected, focused}) => {
             />
         </div>
         <div className='grid grid-rows-[1fr_5fr] h-full'>
-            <div className='chart-title'>{selected.brawler} W/L</div>
+            <div className='chart-title text-nowrap'>{selected.brawler} W/L</div>
             <StatsDonutChart
                 stats={[focused.brawlerWins, focused.brawlerLosses]}
                 colors={['orange', 'black']}

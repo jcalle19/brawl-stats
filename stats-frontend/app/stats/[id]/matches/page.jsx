@@ -7,11 +7,13 @@ const page = async ({params}) => {
     const resolvedParams = await params;
     let client = createClient();
     let { data } = await client.from('matches').select('*').eq('player_id', `#${resolvedParams.id}`);
+    let name = await client.from('players').select('username').eq('id', `#${resolvedParams.id}`);
     const data_ordered = data.reverse();
+
     return (
         <div className='grid grid-cols-[1fr_3fr] gap-0 w-full h-full' style={{maxHeight: '100%'}}>
             <MatchBox data={data_ordered}/>
-            <MatchInfoPanel selectedMatch={{map: 'placeholder'}}/>
+            <MatchInfoPanel selectedMatch={{map: 'placeholder'}} username={name.data[0].username}/>
         </div>
   )
 }

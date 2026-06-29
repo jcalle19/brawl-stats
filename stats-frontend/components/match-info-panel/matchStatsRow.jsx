@@ -1,5 +1,6 @@
 import React from 'react'
 import BrawlIcons from '@/components/brawlIcons'
+import { useRefContext } from '@/contexts/refContext.jsx'
 import { matchURLs } from '@/public/matchURLMap.js'
 import { portraitURLs } from '@/public/portaitURLMap.js'
 import { parse_battle_duration, parse_battle_time } from '@/lib/components/matchFunctions'
@@ -8,11 +9,10 @@ import '@/css/matchStatsRow.css'
 
 let displayColor;
 const MatchStatsRow = ({selected}) => {
+    let { currUsername } =  useRefContext();
     displayColor = (selected.result === 'victory' ? 'green' : 'red');
-    //date, duration, result, rank, elo change, mode
-    console.log(parse_battle_duration(selected.duration))//parse_battle_time(selected.battle_time));
     return (
-        <div className='relative w-full h-full min-h-0 grid grid-rows-[1fr_2fr_2fr] pt-5 pb-5 pr-2 font-bold tracking-wider'>
+        <div className='relative w-full h-full min-h-0 grid grid-rows-[1fr_3fr_3fr] pb-5 pr-2 font-bold tracking-wider'>
             <div className='relative w-full h-full grid grid-cols-3 gap-3'>
                 <div className={`relative ${displayColor}`}>
                     <Image
@@ -37,7 +37,21 @@ const MatchStatsRow = ({selected}) => {
                     </div>
                 </div>
             </div>
-            <div className='relative grid grid-cols-5 gap-3 mt-5'>
+            <div className='relative grid grid-cols-[1fr_4fr] row-start-2 gap-3 pt-5'>
+                <div className='stats-bg h-full min-h-full aspect-square'>
+                    <BrawlIcons src={portraitURLs[selected?.brawler]} width={'100%'} size={'15vw'}/>
+                </div>
+                <div className='stats-bg grid grid-cols-4'>
+                    <div className='test-border grid grid-rows-2'>
+                        <div>{currUsername.current}</div>
+                        <div>{selected?.player_id}</div>
+                    </div>
+                    <div className='test-border'></div>
+                    <div className='test-border'></div>
+                    <div className='test-border'></div>
+                </div>
+            </div>
+            <div className='relative grid grid-cols-5 row-start-3 gap-3 mt-5'>
                 <div className='stats-bg aspect-square rounded overflow-hidden team-box'>
                     <BrawlIcons src={portraitURLs[selected?.team1?.brawler.name]} width={'100%'} size={'15vw'}/>
                 </div>
@@ -54,9 +68,7 @@ const MatchStatsRow = ({selected}) => {
                     <BrawlIcons src={portraitURLs[selected?.enemy3?.brawler.name]} width={'100%'} size={'15vw'}/>
                 </div>
             </div>
-            <div className='grid grid-cols-1 gap-3'>
-                <div className='stats-bg mt-5'>4</div>
-            </div>
+            
         </div>
     )
 }

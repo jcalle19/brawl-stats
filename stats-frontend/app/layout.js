@@ -1,4 +1,5 @@
 import { Metrophobic } from "next/font/google";
+import RefContext from '@/contexts/refContext.jsx'
 import MatchProvider from '@/contexts/matchContext.jsx';
 import "./globals.css";
 
@@ -11,9 +12,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${font.className} w-full h-full`}>
       <body className="min-h-full flex flex-col">
-        <MatchProvider>
-          {children}
-        </MatchProvider>
+        <RefContext>
+          <MatchProvider>
+            {children}
+          </MatchProvider>
+        </RefContext>
       </body>
     </html>
   );

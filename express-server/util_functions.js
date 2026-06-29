@@ -8,6 +8,10 @@ const playerList = [process.env.TEST_ID];
 const untrackedMatches = [];
 const matchBackup = [];
 
+/* Issues / future improvements
+    - Add limit-request handling
+    - optimize churn player list
+*/
 const safe = (handler) => {
     return async (...args) => {
         try {
@@ -41,6 +45,8 @@ const churn_player_list = async (players) => {
         players.map(player =>
             limit(async () => {
                 const battle_log = (await get_battle_log(player)).items;
+                const player_data = await get_player_data(player);
+                console.log(player_data);
                 const recentTime = await db_tools.db_select_recent_time(player);
                 untrackedMatches.push(...trim_games(player, parse_battle_time(recentTime), battle_log));
                 //This is where you submit the matches to database
@@ -67,6 +73,24 @@ const connection = async (io, socket) => {
 const get_battle_log = async (playerId) => {
     const id = process.env.TEST_ID; //params;
     const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${id.replace('#', '')}/battlelog`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${process.env.BRAWL_API_KEY}`,
+        },
+    });
+    try {
+        const data = await result.json();
+        return data;
+    } catch (e) {
+        console.log(e, result);
+    } 
+    return undefined;
+}
+
+const get_player_data = async (playerId) => {
+    const id = process.env.TEST_ID;
+    const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${id.replace('#', '')}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',

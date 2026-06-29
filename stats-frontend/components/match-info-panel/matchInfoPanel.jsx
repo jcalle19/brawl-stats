@@ -1,16 +1,17 @@
 'use client'
 import React from 'react'
 import { useMatchContext } from '@/contexts/matchContext'
-import { portraitURLs } from '@/public/portaitURLMap.js'
-import BrawlIcons from '@/components/brawlIcons'
+import { useRefContext } from '@/contexts/refContext'
 import InfoMapColumn from '@/components/match-info-panel/infoMapColumn'
 import InfoRightColumn from '@/components/match-info-panel/infoRightColumn'
 import StatsPieChart from '@/components/match-info-panel/statsPieChart'
 import '@/css/matchInfoPanel.css'
 
-const MatchInfoPanel = () => {
+const MatchInfoPanel = ({username}) => {
+    const { currUsername } = useRefContext();
     const {selectedMatch, focusedMapStats} = useMatchContext();
 
+    currUsername.current = username;
     return (
         <div className='relative w-full h-full overflow-hidden'>
             <div className='relative w-full h-full p-[2%] grid grid-rows-[2fr_1fr]'>

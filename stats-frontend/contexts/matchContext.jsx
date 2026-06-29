@@ -16,7 +16,7 @@ const MatchProvider = ({children}) => {
         });
     const value=useMemo(()=>({
         selectedMatch, setSelectedMatch,
-        focusedMapStats, setFocusedMapStats
+        focusedMapStats, setFocusedMapStats,
     }),[selectedMatch]);
     return (
         <matchContext.Provider value={value}>
