@@ -49,7 +49,6 @@ const churn_player_list = async (players) => {
                 console.log(player_data);
                 const recentTime = await db_tools.db_select_recent_time(player);
                 untrackedMatches.push(...trim_games(player, parse_battle_time(recentTime), battle_log));
-                //This is where you submit the matches to database
             })
     ))
 }
@@ -99,7 +98,18 @@ const get_player_data = async (playerId) => {
     });
     try {
         const data = await result.json();
-        return data;
+        const packagedData = { 
+            rankValue: data.rankedRank, 
+            rankName: data.rankedRankName, 
+            rankElo: data.rankedElo,
+            seasonHighRankValue: data.highestSeasonRankedRank, 
+            seasonHighRankName: data.highestSeasonRankedRankName, 
+            seasonHighRankElo: data.highestSeasonRankedElo,
+            highestRankValue: data.highestAllTimeRankedRank, 
+            highestRankName: data.highestAllTimeRankedRankName, 
+            highestRankElo: data.highestAllTimeRankedElo,
+        };
+        return packagedData;
     } catch (e) {
         console.log(e, result);
     } 
@@ -110,7 +120,7 @@ const get_player_data = async (playerId) => {
 const trim_games = (player, mostRecentTime, games) => {
     const untracked = [];
     let currTime;
-    for(let i = 0; i < games.length; i++) {
+    for(let i = 0; i < games?.length; i++) {
         currTime = parse_battle_time(games[i].battleTime);
         if (currTime > mostRecentTime) {
             untracked.push(db_tools.db_create_match_object(player, games[i]));
