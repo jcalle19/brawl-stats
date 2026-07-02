@@ -48,7 +48,7 @@ const churn_player_list = async (players) => {
                 const player_data = await get_player_data(player);
                 console.log(player_data);
                 const recentTime = await db_tools.db_select_recent_time(player);
-                untrackedMatches.push(...trim_games(player, parse_battle_time(recentTime), battle_log));
+                untrackedMatches.push(...trim_games(player, parse_battle_time(recentTime), battle_log, player_data));
             })
     ))
 }
@@ -102,12 +102,12 @@ const get_player_data = async (playerId) => {
             rankValue: data.rankedRank, 
             rankName: data.rankedRankName, 
             rankElo: data.rankedElo,
-            seasonHighRankValue: data.highestSeasonRankedRank, 
+            /*seasonHighRankValue: data.highestSeasonRankedRank, 
             seasonHighRankName: data.highestSeasonRankedRankName, 
             seasonHighRankElo: data.highestSeasonRankedElo,
             highestRankValue: data.highestAllTimeRankedRank, 
             highestRankName: data.highestAllTimeRankedRankName, 
-            highestRankElo: data.highestAllTimeRankedElo,
+            highestRankElo: data.highestAllTimeRankedElo,*/
         };
         return packagedData;
     } catch (e) {
@@ -117,13 +117,13 @@ const get_player_data = async (playerId) => {
 }
 
 //grab only untracked games from battlelog
-const trim_games = (player, mostRecentTime, games) => {
+const trim_games = (player, mostRecentTime, games, rank_data) => {
     const untracked = [];
     let currTime;
     for(let i = 0; i < games?.length; i++) {
         currTime = parse_battle_time(games[i].battleTime);
         if (currTime > mostRecentTime) {
-            untracked.push(db_tools.db_create_match_object(player, games[i]));
+            untracked.push(db_tools.db_create_match_object(player, games[i], rank_data));
         }
         else break;
     }

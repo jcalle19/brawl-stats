@@ -15,7 +15,7 @@ const MatchBox = ({data}) => {
             {
                 data.map((item, index) => 
                     <div key={index} style={{marginBottom: '5px'}}>
-                        <MatchBanner matchData={item}/>
+                        <MatchBanner matchData={item} rankDelta={item.elo_value_snapshot - data[(index+1 < data.length ? index + 1 : 0)].elo_value_snapshot}/>
                     </div>
                 )
             }

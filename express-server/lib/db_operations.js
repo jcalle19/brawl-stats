@@ -29,7 +29,7 @@ const db_match_insert = async (matches) => {
     return {data, error};
 }
 
-const db_create_match_object = (player, match) => {
+const db_create_match_object = (player, match, rank_data) => {
     const parsedTeams = parse_team_brawlers(player, match.battle.teams);
     return {
         id: `${match.battleTime}${player}`,
@@ -45,7 +45,9 @@ const db_create_match_object = (player, match) => {
         team2: parsedTeams.playerTeam[1],
         enemy1: parsedTeams.enemyTeam[0],
         enemy2: parsedTeams.enemyTeam[1],
-        enemy3: parsedTeams.enemyTeam[2]
+        enemy3: parsedTeams.enemyTeam[2],
+        rank_value_snapshot: rank_data.rankValue,
+        elo_value_snapshot: rank_data.rankElo
     };
 }
 

@@ -9,6 +9,7 @@ import '@/css/matchStatsRow.css'
 
 let displayColor;
 const MatchStatsRow = ({selected}) => {
+    console.log(selected.rankDelta);
     let { currUsername } =  useRefContext();
     displayColor = (selected.result === 'victory' ? 'green' : 'red');
     return (
@@ -46,9 +47,9 @@ const MatchStatsRow = ({selected}) => {
                         <div>{currUsername.current}</div>
                         <div>{selected?.player_id}</div>
                     </div>
-                    <div className='test-border'></div>
-                    <div className='test-border'></div>
-                    <div className='test-border'></div>
+                    <div className='test-border'>{selected.rank_value_snapshot}</div>
+                    <div className='test-border'>{selected?.elo_value_snapshot}</div>
+                    <div className='test-border'>{selected?.rankDelta}</div>
                 </div>
             </div>
             <div className='relative grid grid-cols-5 row-start-3 gap-3 mt-5'>

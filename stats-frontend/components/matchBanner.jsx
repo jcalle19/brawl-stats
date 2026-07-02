@@ -6,10 +6,11 @@ import { useMatchContext } from '@/contexts/matchContext.jsx';
 import {portraitURLs} from '@/public/portaitURLMap.js'
 import BrawlIcons from './brawlIcons.jsx'
 
-const MatchBanner = ({matchData}) => {
+const MatchBanner = ({matchData, rankDelta}) => {
     const {setSelectedMatch, setFocusedMapStats} = useMatchContext();
 
     const handleClick = async (matchData) => {
+        matchData.rankDelta = rankDelta;
         let brawlerData = await fetchBrawlerData(matchData);
         let mapData = await fetchMapData(matchData);
         setSelectedMatch(matchData);
