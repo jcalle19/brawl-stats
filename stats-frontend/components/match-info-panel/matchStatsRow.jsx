@@ -38,18 +38,28 @@ const MatchStatsRow = ({selected}) => {
                     </div>
                 </div>
             </div>
-            <div className='relative grid grid-cols-[1fr_4fr] row-start-2 gap-3 pt-5'>
-                <div className='stats-bg h-full min-h-full aspect-square'>
-                    <BrawlIcons src={portraitURLs[selected?.brawler]} width={'100%'} size={'15vw'}/>
+            <div className='relative grid grid-cols-[1fr_4fr] row-start-2 w-full gap-3 pt-5'>
+                <div className='relative stats-bg h-full aspect-square overflow-hidden' style={{borderRadius: '5px'}}>
+                    <div className='absolute top-0 w-full h-[20%] italic pl-1 green z-100'>{currUsername.current}</div>
+                    <BrawlIcons src={portraitURLs[selected?.brawler]} height={'100%'} size={'15vw'}/>
                 </div>
                 <div className='stats-bg grid grid-cols-4'>
-                    <div className='test-border grid grid-rows-2'>
-                        <div>{currUsername.current}</div>
-                        <div>{selected?.player_id}</div>
+                    <div className='relative grid grid-rows-[1fr_4fr]'>
+                        <div className='purple rounded-none pl-1'>Player</div>
+                        <div className='player-stat text-base!'>{selected?.player_id}</div>
                     </div>
-                    <div className='test-border'>{selected.rank_value_snapshot}</div>
-                    <div className='test-border'>{selected?.elo_value_snapshot}</div>
-                    <div className='test-border'>{selected?.rankDelta}</div>
+                    <div className='relative grid grid-rows-[1fr_4fr]'>
+                        <div className='red rounded-none pl-1'>Rank</div>
+                        <div className='player-stat'>{selected.rank_value_snapshot}</div>
+                    </div>
+                    <div className='relative grid grid-rows-[1fr_4fr]'>
+                        <div className='orange rounded-none pl-1'>ELO Gain</div>
+                        <div className='player-stat'>{selected?.rankDelta}</div>
+                    </div>
+                    <div className='relative grid grid-rows-[1fr_4fr]'>
+                        <div className='green rounded-none pl-1'>New ELO</div>
+                        <div className='player-stat'>{selected?.elo_value_snapshot}</div>
+                    </div>
                 </div>
             </div>
             <div className='relative grid grid-cols-5 row-start-3 gap-3 mt-5'>

@@ -9,7 +9,7 @@
 
 #info-panel-main {
     border-radius: 15px 15px 0px 0px;
-    background: rgb(18, 18, 18);
+    background: rgba(18, 18, 18, 1);
     overflow: hidden;
 }
 
