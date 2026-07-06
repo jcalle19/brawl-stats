@@ -10,7 +10,7 @@ export function bundledStats(brawlerData, mapData) {
         mapTotalGames: mapData.data.wins + mapData.data.losses,
         mapWins: mapData.data.wins,
         mapLosses: mapData.data.losses,
-        mapWL: mapData.data.wins / (brawlerData.data.wins + mapData.data.losses),
+        mapWL: mapData.data.wins / (mapData.data.wins + mapData.data.losses),
         mapMVP: mapData.data.mvps
     }
 }

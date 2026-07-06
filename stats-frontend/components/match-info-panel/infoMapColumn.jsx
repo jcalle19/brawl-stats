@@ -8,7 +8,7 @@ const InfoMapColumn = ({mapName}) => {
             <div id='map-banner'>
                 <div id='map-banner-text'>{mapName}</div>
             </div>
-            <MapBase/>
+            <MapBase selectedMap={mapName}/>
         </div>
     </div>
   )

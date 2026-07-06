@@ -1,7 +1,9 @@
 import {useRef, useEffect} from 'react'
+import { maps } from '@/public/matchURLMap.js'
+import MapImages from '@/components/mapImages.jsx'
 import '@/css/mapParts.css'
 
-const MapBase = () => {
+const MapBase = ({selectedMap}) => {
   const rotateRef = useRef(null);
   const rotateRefParent = useRef(null);
   const rotateRefInfo = useRef(null);
@@ -30,7 +32,7 @@ const MapBase = () => {
     const handleMouseExit = () => {
         rotateRef.current.style.transform = transformBefore.current;
     }
-
+  //<div className='map-component' id='map-image'></div>
   return (
     <div 
       id='map-base-parent'
@@ -41,7 +43,7 @@ const MapBase = () => {
     >
       <div className='w-full h-full' ref={rotateRef} style={{transformOrigin: 'center'}}>
         <div className='map-component' id='map-base'></div>
-        <div className='map-component' id='map-image'></div>
+        <MapImages src={maps[selectedMap]} width={'98%'} height={'98%'} size={'15vw'}/>
       </div>
     </div>
   )
