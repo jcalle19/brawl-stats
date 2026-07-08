@@ -1,6 +1,7 @@
 import { Metrophobic } from "next/font/google";
 import RefContext from '@/contexts/refContext.jsx'
 import MatchProvider from '@/contexts/matchContext.jsx';
+import PlayerProvider from '@/contexts/playerContext.jsx';
 import "./globals.css";
 
 const font = Metrophobic({
@@ -14,7 +15,9 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <RefContext>
           <MatchProvider>
-            {children}
+            <PlayerProvider>
+              {children}
+            </PlayerProvider>
           </MatchProvider>
         </RefContext>
       </body>

@@ -4,7 +4,6 @@ import { useMatchContext } from '@/contexts/matchContext'
 import { useRefContext } from '@/contexts/refContext'
 import InfoMapColumn from '@/components/match-info-panel/infoMapColumn'
 import InfoRightColumn from '@/components/match-info-panel/infoRightColumn'
-import StatsPieChart from '@/components/match-info-panel/statsPieChart'
 import '@/css/matchInfoPanel.css'
 
 const MatchInfoPanel = ({username}) => {
@@ -21,13 +20,8 @@ const MatchInfoPanel = ({username}) => {
                         <InfoRightColumn selected={selectedMatch} focused={focusedMapStats}/>
                     </div>
                 </div>
-                <div id='stats-section' className='grid grid-cols-[3fr_2fr] striped-bg'>
-                    <div className='min-h-0 w-full h-full grid grid-cols-3'>
-                        <StatsPieChart label={'W/L (Map)'} winPercentage={360*focusedMapStats.mapWL}/>
-                        <StatsPieChart label={`Pickrate (Brawler)`} winPercentage={360*(focusedMapStats.brawlerTotalGames / focusedMapStats.mapTotalGames)}/>
-                        <StatsPieChart label={`W/L (Brawler)`} winPercentage={360*focusedMapStats.brawlerWL}/>
-                    </div>
-                    <div></div>
+                <div id='stats-section' className='grid grid-cols-[2fr_3fr]'>
+                    <div className=''></div>
                 </div>
             </div>
         </div>
