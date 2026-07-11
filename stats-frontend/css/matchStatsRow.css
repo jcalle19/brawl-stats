@@ -29,7 +29,7 @@
     opacity: 0;
     transform: rotate(-90deg);
     transition: width .1s, height .1s, opacity .2s;
-    z-index: 1001;
+    z-index: 100;
 }
 
 .team-box:hover::after, .enemy-box:hover::after {
@@ -91,4 +91,19 @@
     opacity: 1;
     border-radius: 5px;
     z-index: 1000;
+}
+
+.identity-box::after {
+    content: '';
+    position: absolute;
+    bottom: 0%;
+    left: -6%;
+    width: 30%;
+    height: 30%;
+    background-image: url('/ui_svgs/minimize.svg');
+    background-size: 125%;
+    background-repeat: no-repeat;
+    opacity: 1;
+    transition: width .1s, height .1s, opacity .2s;
+    z-index: 1001;
 }

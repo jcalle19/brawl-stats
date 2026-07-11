@@ -8,7 +8,7 @@ const RefProvider = ({children}) => {
     const currUsername = useRef('');
 
     const value=useMemo(()=>({
-        currUsername
+        currUsername,
     }),[]);
     return (
         <refContext.Provider value={value}>

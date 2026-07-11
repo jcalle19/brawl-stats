@@ -8,7 +8,7 @@ const MapImages = ({map, src, width, height}) => {
                 }}>
         <Image src={`${src ? src : '/missing_asset.png'}`} 
           className={`object-cover map-image ${src ? 'grey-border' : ''}`}
-          style={{ overflow: 'hidden', background: 'none'}} 
+          style={{ overflow: 'visible', background: 'none'}} 
           sizes={'100vw'} alt='highlight' 
           fill
           priority

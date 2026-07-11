@@ -8,6 +8,7 @@ const nextConfig = {
         hostname: 'ai6j31goj4.ufs.sh',
       },
     ],
+    qualities: [100, 75],
   },
 };
 

@@ -1,10 +1,12 @@
 import React from 'react'
 import { fetchBrawlerData, fetchMapData } from '@/lib/supabase/browserClient.js'
 import { bundledStats } from '@/lib/components/matchFunctions.js'
-import '@/css/matchBanner.css'
 import { useMatchContext } from '@/contexts/matchContext.jsx';
-import {portraitURLs} from '@/public/portaitURLMap.js'
+import { portraitURLs } from '@/public/portaitURLMap.js'
+import { matchURLs } from '@/public/matchURLMap.js'
+import { parse_battle_time } from '@/lib/components/matchFunctions'
 import BrawlIcons from './brawlIcons.jsx'
+import '@/css/matchBanner.css'
 
 const MatchBanner = ({matchData, rankDelta}) => {
     const {setSelectedMatch, setFocusedMapStats} = useMatchContext();
@@ -16,35 +18,29 @@ const MatchBanner = ({matchData, rankDelta}) => {
         setSelectedMatch(matchData);
         setFocusedMapStats(bundledStats(brawlerData, mapData));
     }
-
+    
     return (
-        <div className='grid grid-rows-[2rem, 2rem, fit-content] match-banner-parent' onClick={()=>handleClick(matchData)}>
+        <div className='grid grid-rows-[1fr, 3fr] match-banner-parent green font-bold overflow-hidden' onClick={()=>handleClick(matchData)}>
             <div className='text-row row-start-1'>
-                <div>{matchData.result}</div>
+                <div className={`${matchData.result === 'victory' ? 'green' : 'red'} p-1 rounded-none!`}>{matchData.result}</div>
             </div>
-            <div className='text-row row-start-2 grid grid-cols-2'>
-                <div className='col-start-1'>{matchData?.mode}</div>
-                <div className='col-start-2'>{matchData?.map}</div>
-            </div>
-            <div className='icon-row row-start-3 grid grid-cols-7'>
-                <div className='brawler-icon-parent'>
-                    <BrawlIcons brawler={matchData?.brawler} player={'self'} src={portraitURLs[matchData?.brawler]} height={'80%'} size={'10vw'}/>
+            <div className='row-start-2 grid grid-cols-[1fr_1fr_2fr] min-h-0'>
+                <div className='brawler-icon-parent h-full w-full stats-bg'>
+                    <BrawlIcons brawler={matchData?.brawler} player={'self'} src={portraitURLs[matchData?.brawler]} width={'100%'} size={'200px'}/>
                 </div>
-                <div className='brawler-icon-parent'>
-                    <BrawlIcons brawler={matchData?.team1.brawler.name} player={'team1'} src={portraitURLs[matchData?.team1.brawler.name]} height={'80%'} size={'10vw'}/>
+                <div className='h-full pt-1 pb-1' style={{borderRight: '2px solid black'}}>
+                    <BrawlIcons src={matchURLs[matchData?.mode]} width={'50%'} overflow={'visible'}/>
                 </div>
-                <div className='brawler-icon-parent'>
-                    <BrawlIcons brawler={matchData?.team2.brawler.name} player={'team2'} src={portraitURLs[matchData?.team2.brawler.name]} height={'80%'} size={'10vw'}/>
-                </div>
-                <div>vs.</div>
-                <div className='brawler-icon-parent'>
-                    <BrawlIcons brawler={matchData?.enemy1.brawler.name} player={'enemy1'} src={portraitURLs[matchData?.enemy1.brawler.name]} height={'80%'} size={'10vw'}/>
-                </div>
-                <div className='brawler-icon-parent'>
-                    <BrawlIcons brawler={matchData?.enemy2.brawler.name} player={'enemy2'} src={portraitURLs[matchData?.enemy2.brawler.name]} height={'80%'} size={'10vw'}/>
-                </div>
-                <div className='brawler-icon-parent'>
-                    <BrawlIcons  brawler={matchData?.enemy3.brawler.name} player={'enemy3'} src={portraitURLs[matchData?.enemy3.brawler.name]} height={'80%'} size={'10vw'}/>
+                <div className='grid grid-rows-[1fr_2fr]'>
+                    <div className='h-full w-full place-content-center'>
+                        <div className='grid grid-cols-2'>
+                            <div className='h-fit w-full text-center' style={{borderRight: '2px solid black'}}>{parse_battle_time(matchData.battle_time).date}</div>
+                            <div className='h-fit w-full text-center'>{parse_battle_time(matchData.battle_time).time}</div>
+                        </div>
+                    </div>
+                    <div className='h-full w-full place-content-center' style={{borderTop: '2px solid black'}}>
+                        <div className='h-fit w-full text-center italic'>{matchData?.map}</div>
+                    </div>
                 </div>
             </div>
         </div>

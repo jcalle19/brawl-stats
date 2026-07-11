@@ -2,7 +2,6 @@ import React from 'react'
 import StatsDonutChart from '@/components/match-info-panel/statsDonutChart'
 
 const DonutChartRow = ({selected, focused}) => {
-    console.log(focused);
   return (
     <div className='relative grid grid-cols-3 min-h-0'>
         <div className='grid grid-rows-[1fr_5fr] h-full'>
