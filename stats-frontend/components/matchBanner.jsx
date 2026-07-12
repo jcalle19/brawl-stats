@@ -29,7 +29,7 @@ const MatchBanner = ({matchData, rankDelta}) => {
                     <BrawlIcons brawler={matchData?.brawler} player={'self'} src={portraitURLs[matchData?.brawler]} width={'100%'} size={'200px'}/>
                 </div>
                 <div className='h-full pt-1 pb-1' style={{borderRight: '2px solid black'}}>
-                    <BrawlIcons src={matchURLs[matchData?.mode]} width={'50%'} overflow={'visible'}/>
+                    <BrawlIcons src={matchURLs[matchData?.mode]} width={'50%'} overflow={'visible'} size={'200px'}/>
                 </div>
                 <div className='grid grid-rows-[1fr_2fr]'>
                     <div className='h-full w-full place-content-center'>

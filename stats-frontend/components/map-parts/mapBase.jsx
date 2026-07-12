@@ -43,7 +43,7 @@ const MapBase = ({selectedMap}) => {
     >
       <div className='w-full h-full' ref={rotateRef} style={{transformOrigin: 'center'}}>
         <div className='map-component' id='map-base'></div>
-        <MapImages src={maps[selectedMap]} width={'98%'} height={'98%'} size={'15vw'}/>
+        <MapImages src={maps[selectedMap]} width={'98%'} height={'98%'} size={'20vw'}/>
       </div>
     </div>
   )

@@ -12,7 +12,7 @@ const MatchInfoPanel = ({username}) => {
 
     currUsername.current = username;
     return (
-        <div className='relative w-full h-full overflow-hidden'>
+        <div className='relative w-full h-full select-none overflow-hidden'>
             <div className='relative w-full h-full p-[2%] grid grid-rows-[2fr_1fr]'>
                 <div id='info-panel-main' className='relative min-h-0 w-full h-full'>
                     <div className='relative w-full h-full min-w-0 min-h-0 grid grid-cols-[2fr_3fr] gap-3'>
