@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import pLimit from 'p-limit';
-import { db_tools } from './lib/db_operations.js';
+import { db_tools } from '../lib/db_operations.js';
 dotenv.config();
 
 const limit = pLimit(25);
@@ -11,6 +11,7 @@ const matchBackup = [];
 /* Issues / future improvements
     - Add limit-request handling
     - optimize churn player list
+    - possibly add fallback in case of failed insertion
 */
 const safe = (handler) => {
     return async (...args) => {
@@ -34,7 +35,6 @@ const poll_untracked_matches = async () => {
         console.log(`inserting ${untrackedMatches.length} matches to database`)
         let inserted = await db_tools.db_match_insert(untrackedMatches);
         console.log(inserted.error);
-        //possibly add fallback in case of failed insertion
         untrackedMatches.length = 0;
     }
     setTimeout(poll_untracked_matches, 5000);

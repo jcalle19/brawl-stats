@@ -30,7 +30,7 @@ app.use(cors({
 //Socket Events
 socket_functions(io);
 
-//For railway dploymebnt
+//For railway deployment
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}`);
