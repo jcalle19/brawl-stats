@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import pLimit from 'p-limit';
-import { db_tools } from '../lib/db_operations.js';
+import { helper_tools } from './lib/helper_operations.js';
 dotenv.config();
 
 const limit = pLimit(25);
@@ -33,7 +33,7 @@ const poll_untracked_matches = async () => {
 
     if (untrackedMatches.length > 0) {
         console.log(`inserting ${untrackedMatches.length} matches to database`)
-        let inserted = await db_tools.db_match_insert(untrackedMatches);
+        let inserted = await helper_tools.db_match_insert(untrackedMatches);
         console.log(inserted.error);
         untrackedMatches.length = 0;
     }
@@ -45,9 +45,9 @@ const churn_player_list = async (players) => {
         players.map(player =>
             limit(async () => {
                 const battle_log = (await get_battle_log(player)).items;
-                const player_data = await get_player_data(player);
+                const player_data = await helper_tools.get_player_data(player);
                 console.log(player_data);
-                const recentTime = await db_tools.db_select_recent_time(player);
+                const recentTime = await helper_tools.db_select_recent_time(player);
                 untrackedMatches.push(...trim_games(player, parse_battle_time(recentTime), battle_log, player_data));
             })
     ))
@@ -87,35 +87,6 @@ const get_battle_log = async (playerId) => {
     return undefined;
 }
 
-const get_player_data = async (playerId) => {
-    const id = process.env.TEST_ID;
-    const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${id.replace('#', '')}`, {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${process.env.BRAWL_API_KEY}`,
-        },
-    });
-    try {
-        const data = await result.json();
-        const packagedData = { 
-            rankValue: data.rankedRank, 
-            rankName: data.rankedRankName, 
-            rankElo: data.rankedElo,
-            /*seasonHighRankValue: data.highestSeasonRankedRank, 
-            seasonHighRankName: data.highestSeasonRankedRankName, 
-            seasonHighRankElo: data.highestSeasonRankedElo,
-            highestRankValue: data.highestAllTimeRankedRank, 
-            highestRankName: data.highestAllTimeRankedRankName, 
-            highestRankElo: data.highestAllTimeRankedElo,*/
-        };
-        return packagedData;
-    } catch (e) {
-        console.log(e, result);
-    } 
-    return undefined;
-}
-
 //grab only untracked games from battlelog
 const trim_games = (player, mostRecentTime, games, rank_data) => {
     const untracked = [];
@@ -123,7 +94,7 @@ const trim_games = (player, mostRecentTime, games, rank_data) => {
     for(let i = 0; i < games?.length; i++) {
         currTime = parse_battle_time(games[i].battleTime);
         if (currTime > mostRecentTime) {
-            untracked.push(db_tools.db_create_match_object(player, games[i], rank_data));
+            untracked.push(helper_tools.db_create_match_object(player, games[i], rank_data));
         }
         else break;
     }

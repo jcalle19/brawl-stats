@@ -51,6 +51,14 @@ const db_create_match_object = (player, match, rank_data) => {
     };
 }
 
+const db_select_top_recent_time = async (playerId) => {
+    const {data, error} = await dbClient
+        .from('top_players')
+        .select('most_recent_match')
+        .eq('id', playerId)
+        .single();
+    return (data ? data.most_recent_match : error);
+}
 /*
 const { error } = await supabase
   .from("matches")
@@ -63,6 +71,14 @@ const db_top_match_insert = async (matches) => {
     const {data, error} = await dbClient
         .from('top_player_matches')
         .insert(matches)
+        .select();
+    return {data, error};
+}
+
+const db_top_players_insert = async (players) => {
+    const {data, error} = await dbClient
+        .from('top_players')
+        .insert(players)
         .select();
     return {data, error};
 }
@@ -80,6 +96,36 @@ const db_create_top_match_object = (player, match) => {
         player_id: player,
     };
 }
+
+const get_player_data = async (playerId) => {
+    const id = process.env.TEST_ID;
+    const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${id.replace('#', '')}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${process.env.BRAWL_API_KEY}`,
+        },
+    });
+    try {
+        const data = await result.json();
+        const packagedData = { 
+            rankValue: data.rankedRank, 
+            rankName: data.rankedRankName, 
+            rankElo: data.rankedElo,
+            /*seasonHighRankValue: data.highestSeasonRankedRank, 
+            seasonHighRankName: data.highestSeasonRankedRankName, 
+            seasonHighRankElo: data.highestSeasonRankedElo,
+            highestRankValue: data.highestAllTimeRankedRank, 
+            highestRankName: data.highestAllTimeRankedRankName, 
+            highestRankElo: data.highestAllTimeRankedElo,*/
+        };
+        return packagedData;
+    } catch (e) {
+        console.log(e, result);
+    } 
+    return undefined;
+}
+
 const parse_team_brawlers = (targetId, teams) => {
     let playerBrawler = '';
     let friendly = [];
@@ -107,14 +153,47 @@ const parse_team_brawlers = (targetId, teams) => {
     }
 }
 
-const parseTeammates = () => {
-
+//replace elo cutoff
+const parse_team_validity = (originalTag, teams, battle_time) => {
+    const validPlayers = [];
+    let teamsCombined = [...teams[0], ...teams[1]];
+    for (const player of teams) {
+        if (player.tag !== originalTag) {
+            //check elo, if good, then add to db
+            const elo = get_player_data(player.tag).rankElo;
+            //if elo is good, then add to db
+            elo > 8250 ? validPlayers.push({id: player.tag, most_recent_match: battle_time}) : '';
+        }
+    }
+    return validPlayers
 }
 
-export const db_tools = {
+const add_top_players = (player, matchData) => {
+    let playersToAdd = parse_team_validity(player, matchData.battle.teams, matchData.battleTime);
+    console.log(playersToAdd);
+    const result = playersToAdd.length > 0 ? db_top_players_insert(playersToAdd) : undefined;
+    return result;
+}
+
+const refresh_player_list = async () => {
+    const {data, error} = await dbClient
+        .from('top_players')
+        .select('id');
+    return {data, error};
+}
+
+export const helper_tools = {
     authClient,
     dbClient,
     db_select_recent_time,
     db_match_insert,
     db_create_match_object,
+    db_select_top_recent_time,
+    db_top_match_insert,
+    db_top_players_insert,
+    get_player_data,
+    db_create_top_match_object,
+    parse_team_validity,
+    add_top_players,
+    refresh_player_list,
 }
