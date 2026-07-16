@@ -1,10 +1,12 @@
 import dotenv from 'dotenv';
 import pLimit from 'p-limit';
+import { settings } from './worker-config.js';
 import { helper_tools } from '../standard-worker/lib/helper_operations.js';
 dotenv.config();
 
 let playerList = [process.env.TEST_ID];
-const limit = pLimit(25);
+let playerCapReached = false;
+const limit = pLimit(settings.pLimitMax);
 const untrackedMatches = [];
 const matchBackup = [];
 
@@ -26,19 +28,22 @@ const matchBackup = [];
 //Go through player list to determine if any players have fallen beneath masters
 const poll_player_data = async () => {
     let playerList = (await helper_tools.refresh_player_list()).data;
+    playerCapReached = (playerList.length >= settings.topPlayerCap ? true : false);
     churn_player_list(playerList);
-    setTimeout(poll_player_data, 5000/*2700000*/);
+    setTimeout(poll_player_data, settings.playerDelayMS);
 }
 
 //maybe optimize with lazy polling
 const poll_untracked_matches = async () => {
     if (untrackedMatches.length > 0) {
         console.log(`inserting ${untrackedMatches.length} matches to set`)
-        //let inserted = await helper_tools.db_top_match_insert(untrackedMatches);
-        //console.log(inserted.error);
+        //pause churn
+        let inserted = await helper_tools.db_top_match_insert(untrackedMatches);
+        //resume churn
+        console.log(inserted);
         untrackedMatches.length = 0;
     }
-    setTimeout(poll_untracked_matches, 5000);
+    setTimeout(poll_untracked_matches, settings.matchDelayMS);
 }
 
 const churn_player_list = async (players) => {
@@ -79,8 +84,11 @@ const trim_games = (player, mostRecentTime, games, rank_data) => {
     for(let i = 0; i < games?.length; i++) {
         currTime = parse_battle_time(games[i].battleTime);
         if (currTime > mostRecentTime) {
-            helper_tools.add_top_players(player, games[i]);
-            untracked.push(helper_tools.db_create_top_match_object(player, games[i], rank_data));
+            if (!playerCapReached) helper_tools.add_top_players(player, games[i]);
+            if (games[i].battle.type === 'soloRanked') {
+                let formattedMatch = helper_tools.db_create_top_match_object(player, games[i], rank_data);
+                untracked.push(formattedMatch);
+            }
         }
         else break;
     }
@@ -92,4 +100,6 @@ const parse_battle_time = (battleTime) => {
     return new Date(formatted);
 }
 
+//Worker actions
 poll_player_data();
+poll_untracked_matches();

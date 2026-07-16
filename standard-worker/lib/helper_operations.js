@@ -68,11 +68,14 @@ const { error } = await supabase
   });
 */
 const db_top_match_insert = async (matches) => {
-    const {data, error} = await dbClient
+    const {error} = await dbClient
         .from('top_player_matches')
-        .insert(matches)
+        .upsert(matches, {
+            onConflict: "id",
+            ignoreDuplicates: true,
+        })
         .select();
-    return {data, error};
+    return error;
 }
 
 const db_top_players_insert = async (players) => {
@@ -98,7 +101,7 @@ const db_create_top_match_object = (player, match) => {
 }
 
 const get_player_data = async (playerId) => {
-    const id = process.env.TEST_ID;
+    const id = playerId;
     const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${id.replace('#', '')}`, {
         method: 'GET',
         headers: {
@@ -154,13 +157,13 @@ const parse_team_brawlers = (targetId, teams) => {
 }
 
 //replace elo cutoff
-const parse_team_validity = (originalTag, teams, battle_time) => {
+const parse_team_validity = async (originalTag, teams, battle_time) => {
     const validPlayers = [];
     let teamsCombined = [...teams[0], ...teams[1]];
-    for (const player of teams) {
+    for (const player of teamsCombined) {
         if (player.tag !== originalTag) {
             //check elo, if good, then add to db
-            const elo = get_player_data(player.tag).rankElo;
+            const elo = (await get_player_data(player.tag)).rankElo;
             //if elo is good, then add to db
             elo > 8250 ? validPlayers.push({id: player.tag, most_recent_match: battle_time}) : '';
         }
@@ -168,10 +171,20 @@ const parse_team_validity = (originalTag, teams, battle_time) => {
     return validPlayers
 }
 
-const add_top_players = (player, matchData) => {
-    let playersToAdd = parse_team_validity(player, matchData.battle.teams, matchData.battleTime);
-    console.log(playersToAdd);
-    const result = playersToAdd.length > 0 ? db_top_players_insert(playersToAdd) : undefined;
+//check this one
+const add_top_players = async (player, matchData) => {
+    let playersToAdd;
+    let result
+    try {
+        console.log(matchData);
+        playersToAdd = await parse_team_validity(player, matchData.battle.teams, matchData.battleTime);
+        result = playersToAdd.length > 0 ? db_top_players_insert(playersToAdd) : [];
+    } catch (err) {
+        console.log(err);
+        result = [];
+    }
+    
+    
     return result;
 }
 
