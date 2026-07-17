@@ -69,9 +69,6 @@ const trim_games = (player, mostRecentTime, games, rank_data) => {
 
 export const util = {
     safe,
-    connection,
-    get_battle_log,
-    parse_battle_time,
     poll_player_data,
     poll_untracked_matches,
 }
