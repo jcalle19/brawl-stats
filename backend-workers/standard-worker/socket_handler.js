@@ -4,17 +4,18 @@ export const socket_functions = (io) => {
     util.poll_player_data();
     util.poll_untracked_matches();
     
+    /* for later use if there is socket integration
     io.on('connection', (socket) => {
         const temp_cards = [];
 
         util.connection(io, socket);
 
-        /*
+        
         socket.on('do_thing', util.safe(()=>{
             util.do_thing(io, socket);
         }));
-        */
+        
     });
-
+    */
     
 }

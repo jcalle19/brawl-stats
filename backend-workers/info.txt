@@ -1,0 +1,20 @@
+Worker info
+
+- Add limit-request handling
+    - optimize churn player list
+    - possibly add fallback in case of failed insertion
+    - Dynamically calculate elo requirement due to lower elo at beginning of season
+
+    - Lower level description
+        churn_player_list :
+        ^   get_player_data (elo, rank name, etc),
+        |   get_recent_time (most recent match logged),
+        |   get_battle_log (complete list of last 25 matches) -> 
+        |       trim_games (remove games before recent time) -+
+        |                                                     |
+        +------------------------------------------untrackedMatches(updated) -> poll_untracked_matches 
+                                                              ^                           |
+                                                              |___________________________|
+
+Top player finder info
+idk :(
