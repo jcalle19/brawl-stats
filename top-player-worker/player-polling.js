@@ -15,14 +15,17 @@ const matchBackup = [];
     - optimize churn player list
     - possibly add fallback in case of failed insertion
     - Dynamically calculate elo requirement due to lower elo at beginning of season
-    - For each pass of player list
-        - Get next player
-        - Get battlelog
-        - Trim games
-        - (NEW) store teammates id to add to player list if above masters with most recent time as current time
-        - restart with updated player list
 
-    
+    - Lower level description
+        churn_player_list :
+        ^   get_player_data (elo, rank name, etc),
+        |   get_recent_time (most recent match logged),
+        |   get_battle_log (complete list of last 25 matches) -> 
+        |       trim_games (remove games before recent time) -+
+        |                                                     |
+        +------------------------------------------untrackedMatches(updated) -> poll_untracked_matches 
+                                                              ^                           |
+                                                              |___________________________|
 */
 
 //Go through player list to determine if any players have fallen beneath masters
@@ -36,12 +39,12 @@ const poll_player_data = async () => {
 //maybe optimize with lazy polling
 const poll_untracked_matches = async () => {
     if (untrackedMatches.length > 0) {
-        console.log(`inserting ${untrackedMatches.length} matches to set`)
-        //pause churn
-        let inserted = await helper_tools.db_top_match_insert(untrackedMatches);
-        //resume churn
-        console.log(inserted);
+        let toDB = untrackedMatches;
         untrackedMatches.length = 0;
+
+        console.log(`inserting ${untrackedMatches.length} matches to db`)
+        let inserted = await helper_tools.db_top_match_insert(toDB);
+        console.log(inserted);
     }
     setTimeout(poll_untracked_matches, settings.matchDelayMS);
 }

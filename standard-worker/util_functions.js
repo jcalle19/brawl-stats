@@ -30,12 +30,12 @@ const poll_player_data = async () => {
 
 //maybe optimize with lazy polling
 const poll_untracked_matches = async () => {
-
     if (untrackedMatches.length > 0) {
-        console.log(`inserting ${untrackedMatches.length} matches to database`)
-        let inserted = await helper_tools.db_match_insert(untrackedMatches);
-        console.log(inserted.error);
+        let toDB = untrackedMatches;
         untrackedMatches.length = 0;
+        console.log(`inserting ${untrackedMatches.length} matches to database`)
+        let inserted = await helper_tools.db_match_insert(toDB);
+        console.log(inserted.error);
     }
     setTimeout(poll_untracked_matches, 5000);
 }
