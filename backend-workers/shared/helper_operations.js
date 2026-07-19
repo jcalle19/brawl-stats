@@ -70,7 +70,7 @@ const parse_team_brawlers = (targetId, teams) => {
 }
 
 //replace elo cutoff
-const parse_team_validity = async (originalTag, teams, battle_time) => {
+const parse_team_validity = async (originalTag, eloCutoff, teams, battle_time) => {
     const validPlayers = [];
     let teamsCombined = [...teams[0], ...teams[1]];
     for (const player of teamsCombined) {
@@ -78,7 +78,7 @@ const parse_team_validity = async (originalTag, teams, battle_time) => {
             //check elo, if good, then add to db
             const elo = (await api_tools.get_player_data(player.tag)).rankElo;
             //if elo is good, then add to db
-            elo > 8250 ? validPlayers.push({id: player.tag, most_recent_match: battle_time}) : '';
+            elo > eloCutoff ? validPlayers.push({id: player.tag, most_recent_match: battle_time}) : '';
         }
     }
     return validPlayers
@@ -96,8 +96,6 @@ const add_top_players = async (player, matchData) => {
         console.log(err);
         result = [];
     }
-    
-    
     return result;
 }
 

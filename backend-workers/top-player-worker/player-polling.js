@@ -56,7 +56,7 @@ const trim_games = (player, mostRecentTime, games, rank_data) => {
     for(let i = 0; i < games?.length; i++) {
         currTime = helper_tools.parse_battle_time(games[i].battleTime);
         if (currTime > timeFmt) {
-            if (!playerCapReached) helper_tools.add_top_players(player, games[i]);
+            //if (!playerCapReached) helper_tools.add_top_players(player, games[i]);
             if (games[i].battle.type === 'soloRanked') {
                 let formattedMatch = helper_tools.create_top_match_object(player, games[i], rank_data);
                 untracked.push(formattedMatch);
