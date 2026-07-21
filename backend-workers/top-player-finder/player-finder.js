@@ -100,12 +100,14 @@ const populate_player_list = async () => {
     );
 }
 
-console.time('find players')
-await fetch_top_players();
-await churn_leaderboard();
-newPlayers.set(highestEloPlayer.tag, {rankElo: highestEloPlayer.rankElo, rankValue: highestEloPlayer.rankValue});
-while (validPlayerList.size <= 200) {
-    await populate_player_list();
-} 
-console.log(validPlayerList);
-console.timeEnd('find players')
+const run = async () => {
+    //Worker actions
+    await fetch_top_players();
+    await churn_leaderboard();
+    newPlayers.set(highestEloPlayer.tag, {rankElo: highestEloPlayer.rankElo, rankValue: highestEloPlayer.rankValue});
+    while (validPlayerList.size <= 200) {
+        await populate_player_list();
+    }
+}
+
+run();
