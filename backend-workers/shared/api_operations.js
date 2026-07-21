@@ -17,7 +17,8 @@ const rate_limit_handler = async (retry, result, attempt=0) => {
     }
 
     if (!result.ok) {
-        console.log(`HTTP ${result.status}`);
+        //if (result.status == 404 && process.env.BRAWL_API_KEY && attempt == 0) retry();
+        console.log('HTTP 404 : proxy error');
         return undefined;
     }
     return (await result.json());
@@ -32,8 +33,6 @@ const get_battle_log = async (playerId, attempt=0) => {
         },
     });
     try {
-        //const data = await result.json();
-        //return data;
         return rate_limit_handler(()=>get_battle_log(playerId, attempt+1), result);
     } catch (e) {
         console.log(e, result);
@@ -51,19 +50,11 @@ const get_player_data = async (playerId, attempt=0) => {
         },
     });
     try {
-        console.log(`https://bsproxy.royaleapi.dev/v1/players/%23${playerId.replace('#', '')}`, 'here');
-        //const data = await result.json();
         const data = await rate_limit_handler(()=>get_player_data(playerId, attempt+1), result);
         const packagedData = { 
             rankValue: data?.rankedRank, 
             rankName: data?.rankedRankName, 
             rankElo: data?.rankedElo,
-            /*seasonHighRankValue: data.highestSeasonRankedRank, 
-            seasonHighRankName: data.highestSeasonRankedRankName, 
-            seasonHighRankElo: data.highestSeasonRankedElo,
-            highestRankValue: data.highestAllTimeRankedRank, 
-            highestRankName: data.highestAllTimeRankedRankName, 
-            highestRankElo: data.highestAllTimeRankedElo,*/
         };
         return packagedData;
     } catch (e) {
