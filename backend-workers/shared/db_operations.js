@@ -14,10 +14,7 @@ const dbClient = createClient(
 
 
 
-//  __  __ _  ____  ____  ____  ____  ____ 
-// (  )(  ( \/ ___)(  __)(  _ \(_  _)/ ___)
-//  )( /    /\___ \ ) _)  )   /  )(  \___ \
-// (__)\_)__)(____/(____)(__\_) (__) (____/
+//Inserts
 
 const db_match_insert = async (table, matches) => {
     const {error} = await dbClient
@@ -38,10 +35,14 @@ const db_top_players_insert = async (players) => {
     return {data, error};
 }
 
-// ____  ____   __   ____  ____ 
-//(  _ \(  __) / _\ (    \/ ___)
-// )   / ) _) /    \ ) D (\___ \
-//(__\_)(____)\_/\_/(____/(____/
+//Updates
+const db_update_top_brawlers = async (matches) => {
+    await dbClient.rpc('update_top_brawler_stats', {
+        match_array: matches
+    });
+}
+
+//Reads
 
 const db_select_recent_time = async (table, playerId) => {
     const {data, error} = await dbClient
@@ -62,6 +63,7 @@ const db_refresh_player_list = async () => {
 export const db_tools = {
     authClient,
     dbClient,
+    db_update_top_brawlers,
     db_select_recent_time,
     db_match_insert,
     db_top_players_insert,

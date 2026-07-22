@@ -38,6 +38,7 @@ const create_top_match_object = (player, match) => {
 }
 
 const parse_battle_time = (battleTime) => {
+    if (battleTime === '') return '';
     const formatted = battleTime.replace(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6');
     return new Date(formatted);
 }
