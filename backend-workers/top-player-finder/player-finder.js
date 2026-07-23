@@ -108,14 +108,13 @@ const run = async () => {
     while (validPlayerList.size <= 200) {
         await populate_player_list();
     }
-
     //need to change data type to object
     let players = [...validPlayerList.keys()].map(id => ({
         id: id,
         most_recent_match: ''
     }));
-    let inserted = await db_tools.db_top_players_insert(players);
-    console.log(inserted.data, inserted.error);
+    if (players.length <= 500) await db_tools.db_top_players_insert(players);
+    else await db_tools.db_top_players_insert(players.slice(0,500));
 }
 
 run();

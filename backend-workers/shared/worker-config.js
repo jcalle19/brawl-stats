@@ -1,5 +1,5 @@
 export const top_config = {
-    dbInsertsOn: false,
+    dbInsertsOn: true,
     pLimitMax: 25,
     topPlayerCap: 200,
     playerDelayMS: 2_400_000,

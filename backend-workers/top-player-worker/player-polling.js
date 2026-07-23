@@ -18,15 +18,13 @@ const poll_player_data = async () => {
     setTimeout(poll_player_data, top_config.playerDelayMS);
 }
 
-//maybe optimize with lazy polling
+//gets stragler matches that are not covered inside of churn_player_list
 const poll_untracked_matches = async () => {
-    if (untrackedMatches.length > 0) console.log('updating normally')
-    if (untrackedMatches.length > 0 && top_config.dbInsertsOn) {
-        let toDB = untrackedMatches;
+    if (untrackedMatches.length > 0 && untrackedMatches.length < 200 && top_config.dbInsertsOn) {
+        let toDB = [...untrackedMatches];
         untrackedMatches.length = 0;
-        console.log(`inserting ${untrackedMatches.length} matches to db`)
-        let inserted = await db_tools.db_update_top_brawlers(toDB);
-        console.log(inserted);
+        console.log(`inserting ${toDB.length} matches to db`)
+        await db_tools.db_update_top_brawlers(toDB);
     }
     setTimeout(poll_untracked_matches, top_config.matchDelayMS);
 }
@@ -41,8 +39,8 @@ const churn_player_list = async (players) => {
                 const recentTime = await db_tools.db_select_recent_time('top_players', id);
                 untrackedMatches.push(...trim_games(id, recentTime, battle_log, player_data));
                 if (untrackedMatches.length >= 200) {
-                    console.log('at 200');
-                    let toDB = untrackedMatches;
+                    console.log(untrackedMatches.length);
+                    let toDB = [...untrackedMatches];
                     untrackedMatches.length = 0;
                     db_tools.db_update_top_brawlers(toDB);
                 }

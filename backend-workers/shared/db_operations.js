@@ -30,16 +30,20 @@ const db_match_insert = async (table, matches) => {
 const db_top_players_insert = async (players) => {
     const {data, error} = await dbClient
         .from('top_players')
-        .insert(players)
+        .upsert(players, {
+            onConflict: "id",
+            ignoreDuplicates: true,
+        })
         .select();
     return {data, error};
 }
 
 //Updates
 const db_update_top_brawlers = async (matches) => {
-    await dbClient.rpc('update_top_brawler_stats', {
+    const {data, error} = await dbClient.rpc('update_top_brawler_stats', {
         match_array: matches
     });
+    return { data, error};
 }
 
 //Reads
