@@ -7,7 +7,7 @@ export const top_config = {
 }
 
 export const standard_config = {
-    dbInsertsOn: false,
+    dbInsertsOn: true,
     pLimitMax: 25,
     playerDelayMS: 90_000,
     matchDelayMS: 10_000,

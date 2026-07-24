@@ -29,10 +29,10 @@ const poll_player_data = async () => {
 const poll_untracked_matches = async () => {
     let toDB;
     let inserted;
-    if (untrackedMatches.length > 0 && standard_config.dbInsertsOn) {
-        toDB = untrackedMatches;
+    if (untrackedMatches.length > 0 && untrackedMatches.length < 200 && standard_config.dbInsertsOn) {
+        toDB = [...untrackedMatches];
         untrackedMatches.length = 0;
-        console.log(`inserting ${untrackedMatches.length} matches to database`)
+        console.log(`inserting ${toDB.length} matches to database`)
         inserted = await db_tools.db_match_insert('matches', toDB);
         console.log(inserted);
     }
@@ -47,6 +47,12 @@ const churn_player_list = async (players) => {
                 const player_data = await api_tools.get_player_data(player);
                 const recentTime = await db_tools.db_select_recent_time('players', player);
                 untrackedMatches.push(...trim_games(player, recentTime, battle_log, player_data));
+                if (untrackedMatches.length >= 200) {
+                    console.log(untrackedMatches.length);
+                    let toDB = [...untrackedMatches];
+                    untrackedMatches.length = 0;
+                    db_tools.db_match_insert('matches', toDB);
+                }
             })
     ))
 }
@@ -61,6 +67,11 @@ const trim_games = (player, mostRecentTime, games, rank_data) => {
         currTime = helper_tools.parse_battle_time(games[i].battleTime);
         if (currTime > timeFmt) {
             untracked.push(helper_tools.create_match_object(player, games[i], rank_data));
+            /* undo this when prod
+            if (games[i].battle.type === 'soloRanked') {
+                let formattedMatch = helper_tools.create_top_match_object(player, games[i]);
+                untracked.push(formattedMatch);
+            }*/
         }
         else break;
     }

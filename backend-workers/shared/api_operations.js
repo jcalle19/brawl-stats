@@ -63,7 +63,22 @@ const get_player_data = async (playerId, attempt=0) => {
     return undefined;
 }
 
+const get_ranked_season = async () => {
+    let playerId = '#QR8G9PY'; //default id (mine :D)
+    const result = await fetch(`https://bsproxy.royaleapi.dev/v1/players/%23${playerId.replace('#', '')}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${process.env.BRAWL_API_KEY}`,
+        },
+    });
+    const data = (await result.json()).rankedSeasonId;
+    return data;
+}
+const rankedSeason = await get_ranked_season();
+
 export const api_tools = {
     get_battle_log,
     get_player_data,
+    rankedSeason,
 }

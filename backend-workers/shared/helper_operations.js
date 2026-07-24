@@ -19,7 +19,8 @@ const create_match_object = (player, match, rank_data) => {
         enemy2: parsedTeams.enemyTeam[1],
         enemy3: parsedTeams.enemyTeam[2],
         rank_value_snapshot: rank_data.rankValue,
-        elo_value_snapshot: rank_data.rankElo
+        elo_value_snapshot: rank_data.rankElo,
+        ranked_season: api_tools.rankedSeason,
     };
 }
 
@@ -34,6 +35,7 @@ const create_top_match_object = (player, match) => {
         map: match.event.map,
         battle_time: match.battleTime,
         player_id: player,
+        ranked_season: api_tools.rankedSeason,
     };
 }
 

@@ -13,7 +13,7 @@ const matchBackup = [];
 
 //Go through player list to determine if any players have fallen beneath masters
 const poll_player_data = async () => {
-    let playerList = (await db_tools.db_refresh_player_list()).data;
+    //let playerList = (await db_tools.db_refresh_player_list()).data; change to players table
     churn_player_list(playerList);
     setTimeout(poll_player_data, top_config.playerDelayMS);
 }
@@ -24,7 +24,7 @@ const poll_untracked_matches = async () => {
         let toDB = [...untrackedMatches];
         untrackedMatches.length = 0;
         console.log(`inserting ${toDB.length} matches to db`)
-        await db_tools.db_update_top_brawlers(toDB);
+        await db_tools.db_update_top_brawlers(toDB); //might not need to await
     }
     setTimeout(poll_untracked_matches, top_config.matchDelayMS);
 }
@@ -58,7 +58,7 @@ const trim_games = (player, mostRecentTime, games, rank_data) => {
         currTime = helper_tools.parse_battle_time(games[i].battleTime);
         if (currTime > timeFmt) {
             if (games[i].battle.type === 'soloRanked') {
-                let formattedMatch = helper_tools.create_top_match_object(player, games[i], rank_data);
+                let formattedMatch = helper_tools.create_top_match_object(player, games[i]);
                 untracked.push(formattedMatch);
             }
         }

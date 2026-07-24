@@ -100,21 +100,26 @@ const populate_player_list = async () => {
     );
 }
 
+//runs once per day
 const run = async () => {
     //Worker actions
     await fetch_top_players();
     await churn_leaderboard();
     newPlayers.set(highestEloPlayer.tag, {rankElo: highestEloPlayer.rankElo, rankValue: highestEloPlayer.rankValue});
+
     while (validPlayerList.size <= 200) {
         await populate_player_list();
     }
-    //need to change data type to object
+
     let players = [...validPlayerList.keys()].map(id => ({
         id: id,
         most_recent_match: ''
     }));
     if (players.length <= 500) await db_tools.db_top_players_insert(players);
     else await db_tools.db_top_players_insert(players.slice(0,500));
+
+    //Routine table cleanup to remove old season data
+    db_tools.db_old_season_cleanup(api_tools.rankedSeason);
 }
 
 run();

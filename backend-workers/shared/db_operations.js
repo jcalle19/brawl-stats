@@ -12,8 +12,6 @@ const dbClient = createClient(
   process.env.SUPABASE_SECRET_KEY
 );
 
-
-
 //Inserts
 
 const db_match_insert = async (table, matches) => {
@@ -64,9 +62,18 @@ const db_refresh_player_list = async () => {
     return {data, error};
 }
 
+//Deletes
+const db_old_season_cleanup = async (season) => {
+    const {data, error} = await dbClient.rpc('delete_old_season_data', {
+        current_season: season
+    });
+    return { data, error };
+}
+
 export const db_tools = {
     authClient,
     dbClient,
+    db_old_season_cleanup,
     db_update_top_brawlers,
     db_select_recent_time,
     db_match_insert,
