@@ -75,7 +75,7 @@ const get_ranked_season = async () => {
     const data = (await result.json()).rankedSeasonId;
     return data;
 }
-const rankedSeason = await get_ranked_season();
+const rankedSeason = Number(await get_ranked_season());
 
 export const api_tools = {
     get_battle_log,

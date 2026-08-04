@@ -1,6 +1,6 @@
 import Chart from 'chart.js/auto';
 
-export function bundledStats(brawlerData, mapData) {
+export function bundledStats(brawlerData, mapData, modeData) {
     return {
         brawlerTotalGames: brawlerData.data.wins + brawlerData.data.losses, 
         brawlerWL: brawlerData.data.wins / (brawlerData.data.wins + brawlerData.data.losses),
@@ -11,7 +11,12 @@ export function bundledStats(brawlerData, mapData) {
         mapWins: mapData.data.wins,
         mapLosses: mapData.data.losses,
         mapWL: mapData.data.wins / (mapData.data.wins + mapData.data.losses),
-        mapMVP: mapData.data.mvps
+        mapMVP: mapData.data.mvps,
+        modeTotalGames: modeData.data.wins + modeData.data.losses,
+        modeWins: modeData.data.wins,
+        modeLosses: modeData.data.losses,
+        modeWL: modeData.data.wins / (modeData.data.wins + modeData.data.losses),
+        modeMVP: modeData.data.mvps,
     }
 }
 

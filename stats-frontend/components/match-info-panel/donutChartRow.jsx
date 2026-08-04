@@ -2,30 +2,35 @@ import React from 'react'
 import StatsDonutChart from '@/components/match-info-panel/statsDonutChart'
 
 const DonutChartRow = ({selected, focused}) => {
+    console.log(focused);
+    let brawlerTotalGames = focused?.brawlers_map.wins + focused?.brawlers_map.losses;
+    let mapTotalGames = focused?.maps.wins + focused?.maps.losses;
+    let brawlerWR = focused?.brawlers_map.wins / brawlerTotalGames;
+    let mapWR = focused?.maps.wins / mapTotalGames;
   return (
     <div className='relative grid grid-cols-3 min-h-0'>
         <div className='grid grid-rows-[1fr_5fr] h-full'>
             <div className='chart-title text-nowrap'>{selected.map} W/L</div>
             <StatsDonutChart
-                stats={[focused.mapWins, focused.mapLosses]}
+                stats={[focused?.maps.wins, focused?.maps.losses]}
                 colors={['mediumseagreen', 'black']}
-                displayNum={`${focused.mapWL.toFixed(2)}`}
+                displayNum={`${mapWR.toFixed(2)}`}
             />
         </div>
         <div className='grid grid-rows-[1fr_5fr] h-full'>
             <div className='chart-title text-nowrap'>{selected.brawler} Pickrate</div>
             <StatsDonutChart
-                stats={[focused.brawlerTotalGames, focused.mapTotalGames - focused.brawlerTotalGames]}
+                stats={[brawlerTotalGames, mapTotalGames - brawlerTotalGames]}
                 colors={['purple','black']}
-                displayNum={`${(focused.brawlerTotalGames/focused.mapTotalGames).toFixed(2)}`}
+                displayNum={`${(brawlerTotalGames/mapTotalGames).toFixed(2)}`}
             />
         </div>
         <div className='grid grid-rows-[1fr_5fr] h-full'>
             <div className='chart-title text-nowrap'>{selected.brawler} W/L</div>
             <StatsDonutChart
-                stats={[focused.brawlerWins, focused.brawlerLosses]}
+                stats={[focused?.brawlers_map.wins, focused?.brawlers_map.losses]}
                 colors={['orange', 'black']}
-                displayNum={`${focused.brawlerWL.toFixed(2)}`}
+                displayNum={`${brawlerWR.toFixed(2)}`}
             />
         </div>
     </div>

@@ -5,7 +5,7 @@
   --foreground: #171717;
   --uiRed: rgb(255, 71, 71);
   --uiGreen: rgb(69, 160, 110);
-  --ui-border-radius: 5px;
+  --ui-border-radius: 0px;
 }
 
 @theme inline {
@@ -48,8 +48,6 @@ body * {
 
 .stats-bg {
   background: radial-gradient(rgb(10, 10, 10));
-  border: 1px solid rgba(60, 179, 114, 0.15);
-  border-radius: 5px;
 }
 
 .green {
@@ -78,3 +76,26 @@ body * {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.relative-center {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*Font Area*/
+.small-text {
+  font-size: 1rem;
+  line-height: 1rem;
+  width: fit-content;
+  height: fit-content;
+}
+
+.large-text {
+  font-size: 3rem;
+  line-height: 3rem;
+  width: fit-content;
+  height: fit-content;
+}
+

@@ -13,7 +13,7 @@ const matchBackup = [];
 
 //Go through player list to determine if any players have fallen beneath masters
 const poll_player_data = async () => {
-    //let playerList = (await db_tools.db_refresh_player_list()).data; change to players table
+    let playerList = (await db_tools.db_refresh_player_list()).data; //change to players table
     churn_player_list(playerList);
     setTimeout(poll_player_data, top_config.playerDelayMS);
 }

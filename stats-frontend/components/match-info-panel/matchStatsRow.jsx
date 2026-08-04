@@ -55,7 +55,7 @@ const MatchStatsRow = ({selected}) => {
                 </div>
             </div>
             <div className='relative grid grid-cols-5 row-start-2 gap-3 mt-5'>
-                <div className='relative stats-bg aspect-square grid grid-rows-[1fr_4fr]'>
+                <div className='relative stats-bg aspect-square grid grid-rows-[1fr_4fr] test-border'>
                     <div className='absolute w-full green rounded-none pl-1 z-100'>{currUsername.current}</div>
                     <BrawlIcons src={portraitURLs[selected?.brawler]} width={'100%'} size={portraitSize}/>
                 </div>

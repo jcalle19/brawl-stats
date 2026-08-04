@@ -41,6 +41,7 @@ const db_update_top_brawlers = async (matches) => {
     const {data, error} = await dbClient.rpc('update_top_brawler_stats', {
         match_array: matches
     });
+    console.log(error);
     return { data, error};
 }
 

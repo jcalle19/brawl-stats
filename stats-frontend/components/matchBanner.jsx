@@ -1,5 +1,5 @@
 import React from 'react'
-import { fetchBrawlerData, fetchMapData } from '@/lib/supabase/browserClient.js'
+import { client_tools, retrieve_all_stats } from '@/lib/supabase/browserClient.js'
 import { bundledStats } from '@/lib/components/matchFunctions.js'
 import { useMatchContext } from '@/contexts/matchContext.jsx';
 import { portraitURLs } from '@/public/portaitURLMap.js'
@@ -9,14 +9,13 @@ import BrawlIcons from './brawlIcons.jsx'
 import '@/css/matchBanner.css'
 
 const MatchBanner = ({matchData, rankDelta}) => {
-    const {setSelectedMatch, setFocusedMapStats} = useMatchContext();
+    const {setSelectedMatch, setFocusedStats} = useMatchContext();
 
     const handleClick = async (matchData) => {
         matchData.rankDelta = rankDelta;
-        let brawlerData = await fetchBrawlerData(matchData);
-        let mapData = await fetchMapData(matchData);
+        const dbStatsCombined = await retrieve_all_stats(matchData);
         setSelectedMatch(matchData);
-        setFocusedMapStats(bundledStats(brawlerData, mapData));
+        setFocusedStats(dbStatsCombined.data);
     }
     
     return (
