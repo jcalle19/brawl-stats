@@ -32,3 +32,41 @@ export const parse_battle_time = (battleTime) => {
 export const parse_battle_duration = (duration) => {
     return `${Math.floor(duration / 60)}:${duration % 60}`;
 }
+
+export const calc_display_stats = (focusedStats) => {
+    const mapTotalGames = focusedStats?.maps.wins + focusedStats?.maps.losses;
+    const brawlerMapGames = focusedStats?.brawlers_map.wins + focusedStats?.brawlers_map.losses;
+    const modeTotalGames = focusedStats?.modes.wins + focusedStats?.modes.losses;
+    const brawlerModeGames = focusedStats?.brawlers_mode.wins + focusedStats?.brawlers_mode.losses;
+
+    const selectedMapWL = focusedStats?.brawlers_map.wins / brawlerMapGames;
+    const selectedModeWL = focusedStats?.brawlers_mode.wins / brawlerModeGames;
+    const selectedMapPick = brawlerMapGames / mapTotalGames;
+    const selectedModePick =  brawlerModeGames / modeTotalGames;
+
+    const delta = ((selectedMapWL - focusedStats?.top_map_winrate) + 
+                  (selectedModeWL - focusedStats?.top_mode_winrate) + 
+                  (selectedMapPick - focusedStats?.top_map_pickrate) + 
+                  (selectedModePick - focusedStats?.top_mode_pickrate))/4;
+    const statColor = {
+        mapWLGreen: (selectedMapWL >= focusedStats?.top_map_winrate),
+        modeWLGreen: (selectedModeWL >= focusedStats?.top_mode_winrate),
+        mapPickGreen: (selectedMapPick >= focusedStats?.top_map_pickrate),
+        modePickGreen: (selectedModePick >= focusedStats?.top_mode_pickrate),
+        deltaGreen: (delta >= 0),
+    };
+
+    const letters = ['F','D','C','B','A'];
+    const grade = letters[Math.floor(5*((delta/2) + .5))]; //grade algorithm
+
+    
+    return {
+        selectedMapWL,
+        selectedModeWL,
+        selectedMapPick,
+        selectedModePick,
+        statColor,
+        delta,
+        grade,
+    }
+}

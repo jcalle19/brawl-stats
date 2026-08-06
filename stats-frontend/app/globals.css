@@ -99,3 +99,10 @@ body * {
   height: fit-content;
 }
 
+.huge-text {
+  font-size: 5rem;
+  line-height: 5rem;
+  width: fit-content;
+  height: fit-content;
+}
+
