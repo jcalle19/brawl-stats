@@ -6,10 +6,12 @@ export const useMatchPageContext = () => useContext(matchPageContext);
 
 const MatchPageProvider = ({children}) => {
     const [currPage, setCurrPage] = useState(0);
+    const [matchBoxOpen, setMatchBoxOpen] = useState(false);
 
     const value=useMemo(()=>({
-        currPage, setCurrPage
-    }),[currPage]);
+        currPage, setCurrPage,
+        matchBoxOpen, setMatchBoxOpen
+    }),[currPage, matchBoxOpen]);
     return (
         <matchPageContext.Provider value={value}>
             {children}

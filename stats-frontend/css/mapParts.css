@@ -1,5 +1,5 @@
 #map-base-parent {
-    position: absolute;
+    position: relative;
     left: 50%;
     top: 55%;
     transform: translate(-50%, -50%);

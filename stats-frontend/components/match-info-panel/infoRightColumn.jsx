@@ -1,16 +1,23 @@
 import React from 'react'
 import DonutChartRow from '@/components/match-info-panel/donutChartRow'
+import DefaultDonutRow from '@/components/placeholder-commponents/defaultDonutRow'
+import DefaultMatchStatsRow from '@/components/placeholder-commponents/defaultMatchStatsRow'
 import MatchStatsRow from '@/components/match-info-panel/matchStatsRow'
+import GridSection from '@/components/gridSection'
 
-const InfoRightColumn = ({selected, focused}) => {
+const InfoRightColumn = ({defaultDisplay, selected, focused}) => {
   return (
-    <div className='relative w-full h-full h-max-full grid grid-rows-[1fr_3fr] pt-5 overflow-y-auto'>
-        <div className='overflow-hidden'>
-          <DonutChartRow selected={selected} focused={focused}/>
-        </div>
-        <div className=''>
-          <MatchStatsRow selected={selected}/>
-        </div>
+    <div className='relative w-full h-[95%] max-h-full grid grid-rows-[1fr_3fr] gap-5' style={{border: '1px solid red'}}>
+        <GridSection>
+          {true ? <DefaultDonutRow/> :
+            <DonutChartRow selected={selected} focused={focused}/>
+          }
+        </GridSection>
+        <GridSection>
+          {true ? <DefaultMatchStatsRow/> :
+            <MatchStatsRow selected={selected}/>
+          }
+        </GridSection>
     </div>
   )
 }

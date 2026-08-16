@@ -7,9 +7,12 @@ export const useMatchContext = () => useContext(matchContext);
 const MatchProvider = ({children}) => {
     const [selectedMatch, setSelectedMatch] = useState({map: 'none'});
     const [focusedStats, setFocusedStats] = useState(null);
+    const [matchBoxOpen, setMatchBoxOpen] = useState(false);
+
     const value=useMemo(()=>({
         selectedMatch, setSelectedMatch,
         focusedStats, setFocusedStats,
+        matchBoxOpen, setMatchBoxOpen
     }),[selectedMatch]);
     return (
         <matchContext.Provider value={value}>

@@ -41,6 +41,16 @@ body * {
   box-sizing: border-box;
 }
 
+ul {
+    list-style-type: disc;
+    padding: 10px 0 !important;
+    padding-left: 20px !important;
+    }
+
+GridSection, GridSection * {
+  min-height: 0px;
+}
+
 .striped-bg {
   background: repeating-linear-gradient(45deg, black, black 5px, rgb(18, 18, 18) 5px, rgb(18, 18, 18) 10px);
   box-shadow: 0px 0px 10px black;
@@ -84,10 +94,22 @@ body * {
   transform: translate(-50%, -50%);
 }
 
+.vert-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
 /*Font Area*/
 .small-text {
   font-size: 1rem;
   line-height: 1rem;
+  width: fit-content;
+  height: fit-content;
+}
+
+.medium-text {
+  font-size: clamp(14px, 1.4vw, 20px);
+  line-height: clamp(14px, 1.4vw, 20px);
   width: fit-content;
   height: fit-content;
 }
@@ -104,5 +126,9 @@ body * {
   line-height: 5rem;
   width: fit-content;
   height: fit-content;
+}
+
+.square {
+  aspect-ratio: 1/1;
 }
 

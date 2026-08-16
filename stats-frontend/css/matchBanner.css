@@ -15,7 +15,6 @@
 
 .match-banner-parent {
     width: 100%;
-    max-width: 50vw;
     height: min(fit-content, 4vmax);
     background-color: rgb(23, 23, 23);
     outline: 0px solid transparent;

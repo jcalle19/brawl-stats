@@ -5,6 +5,7 @@ import { calc_display_stats } from '@/lib/components/matchFunctions';
 /*
 TODO
     - Put starting calculations in separate file
+    - improved readability on this file
 */
 
 const TopPlayerStats = ({username, focusedStats, selectedMatch}) => {
