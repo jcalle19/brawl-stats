@@ -1,8 +1,8 @@
 import React from 'react'
 import { createClient } from '@/lib/supabase/browserClient.js'
-import MatchBox from '@/components/matchBox.jsx'
-import MatchContainer from '@/components/matchContainer'
+import MatchContainer from '@/components/side-panel/matchContainer'
 import MatchInfoPanel from '@/components/match-info-panel/matchInfoPanel'
+import SidePanelContainer from '@/components/side-panel/sidePanelContainer'
 import DefaultInfoPanel from '@/components/placeholder-commponents/defaultInfoPanel'
 import MobileInfoColumns from '@/components/mobile-view/mobileInfoColumns'
 
@@ -14,17 +14,15 @@ const page = async ({params}) => {
     data.reverse();
     //<MatchInfoPanel selectedMatch={{map: 'placeholder'}} username={name.data[0].username}/>
     return (
-        <div className='relative grid grid-cols-[1fr_3fr] [@media(max-aspect-ratio:1/1)]:grid-cols-1 gap-0 w-full h-full'>
+        <div className='relative gap-0 w-full h-full'>
             <div className='relative hidden [@media(max-aspect-ratio:1/1)]:block'>
                 <MatchContainer data={data} mobile={true}/>
             </div>
-            <div className='relative block [@media(max-aspect-ratio:1/1)]:hidden'>
-                <MatchContainer data={data} mobile={false}/> 
-            </div>
+            <SidePanelContainer data={data}/>
             <div className='relative block [@media(max-aspect-ratio:1/1)]:hidden min-h-0 h-full w-full'>
-                <MatchInfoPanel style={{display: 'none'}} selectedMatch={{map: 'placeholder'}} username={name.data[0].username}/>
+                <DefaultInfoPanel/>
             </div>
-            <div className='relative hidden [@media(max-aspect-ratio:1/1)]:block h-full w-full select-none overflow-hidden'>
+            <div className='relative hidden [@media(max-aspect-ratio:1/1)]:block h-full w-full overflow-hidden'>
                 <MobileInfoColumns/>
             </div>
             

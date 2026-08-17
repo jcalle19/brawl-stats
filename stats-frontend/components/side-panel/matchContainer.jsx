@@ -1,45 +1,37 @@
 'use client'
 import React from 'react'
-import MatchBanner from './matchBanner.jsx';
+import MatchBanner from '@/components/side-panel/matchBanner.jsx';
 import { useMatchPageContext } from '@/contexts/matchPageContext.jsx';
 //add this to a potential config file
 const matchesPerPage = 6;
 
-
-
-//REPLACED BY MATCHCONTAINER.JSX
-
-
-
-const MatchBox = ({data}) => {
-    const { currPage, setCurrPage } = useMatchPageContext();
+const MatchContainer = ({data, mobile}) => {
+    const { currPage, setCurrPage, matchBoxOpen } = useMatchPageContext();
     const maxPage = Math.ceil(data.length / matchesPerPage);
     const slicedData = data.slice(currPage * matchesPerPage, currPage * matchesPerPage + matchesPerPage);
-
-    const handleClick = (newPage) => {
-        console.log(newPage);
-        (newPage >= maxPage || newPage < 0) ? '' : setCurrPage(newPage);
-    }
-
+    
     const pageDown = () => {
         setCurrPage(prev => (prev > 0) ? prev - 1 : prev);
     }
-
+    
     const pageUp = () => {
         setCurrPage(prev => (prev < maxPage - 1) ? prev + 1 : prev);
         console.log('hi');
     }
 
     return (
-        <div className='relative matchbox-parent w-full h-[95%] striped-bg pt-4 pl-5 pr-5 pb-5'>
-            {
-                slicedData.map((item, index) => 
-                    <div key={item.id} style={{marginBottom: '8px'}}>
-                        <MatchBanner matchData={item} rankDelta={item.elo_value_snapshot - data[(index+1 < data.length ? index + 1 : 0)].elo_value_snapshot}/>
-                    </div>
-                )
-            }
-            <div className='fixed bottom-0 left-0 h-[5%] w-full grid grid-cols-3 purple font-bold z-10000' >
+        <div className={`${mobile && matchBoxOpen ? 'hidden' : '' } relative w-full h-[100vh] grid grid-rows-[19fr_1fr]`}>
+            <div className='relative matchbox-parent w-full h-full striped-bg pt-4 pl-5 pr-5 pb-5'>
+                {
+                    slicedData.map((item, index) => 
+                        <div key={item.id} style={{marginBottom: '8px'}}>
+                            <MatchBanner matchData={item} rankDelta={item.elo_value_snapshot - data[(index+1 < data.length ? index + 1 : 0)].elo_value_snapshot}/>
+                        </div>
+                    )
+                }
+                
+            </div>
+            <div className='aboslute bottom-0 left-0 h-full w-full grid grid-cols-3 purple font-bold z-10000' >
                 <div className='relative page-arrow w-full h-full' onClick={()=>pageDown()}>
                     <div className='absolute-center select-none'>{'<'}</div>
                 </div>
@@ -54,4 +46,4 @@ const MatchBox = ({data}) => {
     )
 }
 
-export default MatchBox;
+export default MatchContainer

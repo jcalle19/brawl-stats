@@ -5,7 +5,7 @@ import { useMatchContext } from '@/contexts/matchContext.jsx';
 import { portraitURLs } from '@/public/portaitURLMap.js'
 import { matchURLs } from '@/public/matchURLMap.js'
 import { parse_battle_time } from '@/lib/components/matchFunctions'
-import BrawlIcons from './brawlIcons.jsx'
+import BrawlIcons from '@/components/brawlIcons.jsx'
 import '@/css/matchBanner.css'
 
 const MatchBanner = ({matchData, rankDelta}) => {
