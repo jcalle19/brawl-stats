@@ -1,7 +1,7 @@
 import React from 'react'
 import DonutChartRow from '@/components/match-info-panel/donutChartRow'
-import DefaultDonutRow from '@/components/placeholder-commponents/defaultDonutRow'
-import DefaultMatchStatsRow from '@/components/placeholder-commponents/defaultMatchStatsRow'
+import DefaultDonutRow from '@/components/placeholder-components/defaultDonutRow'
+import DefaultMatchStatsRow from '@/components/placeholder-components/defaultMatchStatsRow'
 import MatchStatsRow from '@/components/match-info-panel/matchStatsRow'
 import GridSection from '@/components/gridSection'
 

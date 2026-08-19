@@ -9,9 +9,9 @@ const SidePanelContainer = ({data}) => {
 
   return (
     <div className={`
-      ${sidePanelOpen ? 'left-[-350px]' : 'left-0'}
+      ${!sidePanelOpen ? 'left-[-350px]' : 'left-0'}
       transition-left duration-200
-      absolute block [@media(max-aspect-ratio:1/1)]:hidden h-full w-[350px] grid grid-cols-[350px_50px]`}
+      absolute [@media(max-aspect-ratio:1/1)]:hidden h-full w-[350px] grid grid-cols-[350px_50px]`}
     >
       <MatchContainer data={data} mobile={false}/>
       <PanelToggle/>

@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/browserClient.js'
 import MatchContainer from '@/components/side-panel/matchContainer'
 import MatchInfoPanel from '@/components/match-info-panel/matchInfoPanel'
 import SidePanelContainer from '@/components/side-panel/sidePanelContainer'
-import DefaultInfoPanel from '@/components/placeholder-commponents/defaultInfoPanel'
+import DefaultInfoPanel from '@/components/placeholder-components/defaultInfoPanel'
 import MobileInfoColumns from '@/components/mobile-view/mobileInfoColumns'
 
 const page = async ({params}) => {

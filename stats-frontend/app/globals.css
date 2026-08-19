@@ -122,8 +122,8 @@ GridSection, GridSection * {
 }
 
 .huge-text {
-  font-size: 5rem;
-  line-height: 5rem;
+  font-size: max(1rem, min(4cqw, 6cqh));
+  line-height: max(1rem, min(4cqw, 6cqh));
   width: fit-content;
   height: fit-content;
 }

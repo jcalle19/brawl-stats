@@ -20,7 +20,7 @@ const MatchContainer = ({data, mobile}) => {
     }
 
     return (
-        <div className={`${mobile && matchBoxOpen ? 'hidden' : '' } relative w-full h-[100vh] grid grid-rows-[19fr_1fr]`}>
+        <div className={`${mobile && matchBoxOpen ? 'hidden' : '' } relative w-full h-[100vh] grid grid-rows-[19fr_1fr] z-10000`}>
             <div className='relative matchbox-parent w-full h-full striped-bg pt-4 pl-5 pr-5 pb-5'>
                 {
                     slicedData.map((item, index) => 
