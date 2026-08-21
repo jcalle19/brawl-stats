@@ -4,7 +4,7 @@ import MapBase from '@/components/map-parts/mapBase'
 const InfoMapColumn = ({mapName}) => {
   return (
     <div className='relative h-full max-h-full'>
-        <div id='map-container' className='col-start-1 striped-bg max-h-full'>
+        <div id='map-container' className='col-start-1 stats-bg max-h-full'>
             <div id='map-banner'>
                 <div id='map-banner-text'>{mapName}</div>
             </div>

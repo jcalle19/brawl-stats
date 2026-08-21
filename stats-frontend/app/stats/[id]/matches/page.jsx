@@ -12,20 +12,11 @@ const page = async ({params}) => {
     let { data } = await client.from('matches').select('*').eq('player_id', `#${resolvedParams.id}`).order('id', {ascending: true});
     let name = await client.from('players').select('username').eq('id', `#${resolvedParams.id}`);
     data.reverse();
-    //<MatchInfoPanel selectedMatch={{map: 'placeholder'}} username={name.data[0].username}/>
+
     return (
         <div className='relative gap-0 w-full h-full'>
-            <div className='relative hidden [@media(max-aspect-ratio:1/1)]:block'>
-                <MatchContainer data={data} mobile={true}/>
-            </div>
             <SidePanelContainer data={data}/>
-            <div className='relative block [@media(max-aspect-ratio:1/1)]:hidden min-h-0 h-full w-full'>
-                <DefaultInfoPanel/>
-            </div>
-            <div className='relative hidden [@media(max-aspect-ratio:1/1)]:block h-full w-full overflow-hidden'>
-                <MobileInfoColumns/>
-            </div>
-            
+            <DefaultInfoPanel/>
         </div>
   )
 }

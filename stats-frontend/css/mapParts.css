@@ -1,9 +1,9 @@
 #map-base-parent {
     position: relative;
     left: 50%;
-    top: 55%;
+    top: 50%;
     transform: translate(-50%, -50%);
-    height: 80%;
+    width: 90%;
     aspect-ratio: 21 / 33;
 }
 
