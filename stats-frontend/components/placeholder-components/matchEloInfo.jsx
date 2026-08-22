@@ -8,7 +8,11 @@ const MatchEloInfo = ({selected}) => {
         <div className='h-full aspect-square test-border'>
             <BrawlIcons src={rankedValueToIcon(selected?.rank_value_snapshot)} width= {'90%'} height={`${90*.75}%`} size={'15vw'}/>
         </div>
-        <div className='h-full aspect-square test-border'>{selected?.rankDelta}</div>
+        <div className='h-full aspect-square test-border'>
+          <div className='relative-center text-fit font-bold italic'>
+            {selected?.rankDelta}
+          </div>
+        </div>
         <div className='h-full aspect-square test-border'>{selected?.elo_value_snapshot}</div>
     </div>
   )

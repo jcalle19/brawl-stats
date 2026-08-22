@@ -128,6 +128,20 @@ GridSection, GridSection * {
   height: fit-content;
 }
 
+.text-fit {
+  font-size: max(1rem, min(4cqw, 6cqh));
+  line-height: max(1rem, min(4cqw, 6cqh));
+  width: fit-content;
+  height: fit-content;
+}
+
+.text-fit-sm {
+  font-size: min(.85rem, min(3cqw, 5cqh));
+  font-size: min(.85rem, min(3cqw, 5cqh));
+  width: fit-content;
+  height: fit-content;
+}
+
 .square {
   aspect-ratio: 1/1;
 }

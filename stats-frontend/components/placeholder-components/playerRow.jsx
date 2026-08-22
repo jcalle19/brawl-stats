@@ -19,7 +19,10 @@ const PlayerRow = ({selected}) => {
     }
 
   return (
-    <div className='stats-bg h-full w-full flex justify-between overflow-x-auto overflow-y-hidden p-3'>
+    <div className='stats-bg h-full w-full flex justify-between overflow-x-auto overflow-hidden p-4 md:p-2'>
+        <div className={`${commonTraits}`}>
+            <BrawlIcons src={portraitURLs[selected?.brawler]} width={'100%'} size={portraitSize}/>
+        </div>
         <div className={`${commonTraits} team-box`} onClick={()=>handleClick(0)}>
             <ToggleBox colorClass={'green'} content={[selected?.team1?.tag, selected?.team1?.name]} 
                 selectedId={selectedIndex} boxId={0}/>

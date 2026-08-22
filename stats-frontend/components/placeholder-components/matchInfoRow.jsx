@@ -10,7 +10,7 @@ const MatchInfoRow = ({selected}) => {
     console.log(selected);
   return (
     <div className='w-full h-full grid grid-cols-[3fr_3fr_2fr_2fr]'>
-        <GridSection classes={'relative'}>
+        <GridSection classes={`relative ${displayColor}`}>
             <Image className='h-full w-full'
                 fill
                 src={matchURLs[selected?.mode] ? matchURLs[selected?.mode] : '/missing_asset.png'}
@@ -19,9 +19,21 @@ const MatchInfoRow = ({selected}) => {
                 sizes={'10vw'}
             />
         </GridSection>
-        <GridSection>{selected?.result}</GridSection>
-        <GridSection>{parse_battle_time(selected?.battle_time).date}</GridSection>
-        <GridSection>{parse_battle_duration(selected?.duration)}</GridSection>
+        <GridSection classes={displayColor}>
+            <div className='relative-center text-fit font-bold italic'>
+                {String(selected?.result).toUpperCase()}
+            </div>
+        </GridSection>
+        <GridSection classes={displayColor}>
+            <div className='relative-center text-fit font-bold italic'>
+                {parse_battle_time(selected?.battle_time).date}
+            </div>
+        </GridSection>
+        <GridSection classes={displayColor}>
+            <div className='relative-center text-fit font-bold italic'>
+                {parse_battle_duration(selected?.duration)}
+            </div>
+        </GridSection>
     </div>
   )
 }
