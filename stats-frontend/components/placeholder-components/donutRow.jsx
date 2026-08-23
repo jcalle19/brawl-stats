@@ -13,22 +13,22 @@ const DonutRow = ({focused}) => {
             />
     */
     return (
-        <div className='stats-bg h-full w-full flex justify-evenly overflow-x-auto p-2 gap-0'>
-            <div className='h-full aspect-square test-border'>
+        <div className='stats-bg h-full w-full flex justify-evenly overflow-x-auto pt-2 pb-2 gap-3'>
+            <div className='h-full rounded-[15px] aspect-[5/4] min-w-fit overflow-hidden'>
                 <StatsDonutChart
                     stats={[focused?.brawlers_map.wins, focused?.brawlers_map.losses]}
                     colors={['orange', 'black']}
                     displayNum={`${brawlerWR.toFixed(2)}`}
                 />
             </div>
-            <div className='h-full aspect-square test-border'>
+            <div className='h-full rounded-[15px] aspect-[5/4] min-w-fit overflow-hidden'>
                 <StatsDonutChart
                     stats={[brawlerTotalGames, mapTotalGames - brawlerTotalGames]}
                     colors={['purple','black']}
                     displayNum={`${(brawlerTotalGames/mapTotalGames).toFixed(2)}`}
                 />
             </div>
-            <div className='h-full aspect-square test-border'>
+            <div className='h-full rounded-[15px] aspect-[5/4] min-w-fit overflow-hidden'>
                 <StatsDonutChart
                     stats={[focused?.maps.wins, focused?.maps.losses]}
                     colors={['mediumseagreen', 'black']}

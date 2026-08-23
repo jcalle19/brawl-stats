@@ -6,12 +6,12 @@ import { portraitURLs } from '@/public/portaitURLMap.js'
 import '@/css/matchStatsRow.css'
 
 let displayColor;
-let portraitSize = '10vw'
+let portraitSize = '200px'
 let boxToggles = [false,false,false,false,false];
 
 const PlayerRow = ({selected}) => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
-    const commonTraits = 'h-full aspect-square'
+    const commonTraits = 'h-full min-h-[100px] shrink-0 aspect-square rounded-[5px] overflow-hidden test-border'
 
     const handleClick = (index) => {
         console.log(selectedIndex, index);
@@ -19,7 +19,7 @@ const PlayerRow = ({selected}) => {
     }
 
   return (
-    <div className='stats-bg h-full w-full flex justify-between overflow-x-auto overflow-hidden p-4 md:p-2'>
+    <div className='stats-bg w-full md:flex md:justify-center md:overflow-x-auto grid grid-cols-3 grid-rows-3 gap-2 p-4 md:p-2 test-border'>
         <div className={`${commonTraits}`}>
             <BrawlIcons src={portraitURLs[selected?.brawler]} width={'100%'} size={portraitSize}/>
         </div>
@@ -34,7 +34,9 @@ const PlayerRow = ({selected}) => {
             <BrawlIcons src={portraitURLs[selected?.team2?.brawler.name]} 
                 width={'100%'} size={portraitSize} onClick={()=>{boxToggles[1] = !boxToggles[1]}}/>
         </div>
-        <div className={commonTraits}>vs</div>
+        <div className={commonTraits}>
+            <div className='relative-center text-fit'>vs</div>
+        </div>
         <div className={`${commonTraits} enemy-box`} onClick={()=>handleClick(2)}>
             <ToggleBox colorClass={'red'} content={[selected?.enemy1?.tag, selected?.enemy1?.name]} 
                 selectedId={selectedIndex} boxId={2}/>

@@ -57,7 +57,7 @@ GridSection, GridSection * {
 }
 
 .stats-bg {
-  background: radial-gradient(rgb(10, 10, 10));
+  background: radial-gradient(rgb(20, 20, 20));
 }
 
 .green {
@@ -100,44 +100,16 @@ GridSection, GridSection * {
   transform: translateY(-50%);
 }
 /*Font Area*/
-.small-text {
-  font-size: 1rem;
-  line-height: 1rem;
-  width: fit-content;
-  height: fit-content;
-}
-
-.medium-text {
-  font-size: clamp(14px, 1.4vw, 20px);
-  line-height: clamp(14px, 1.4vw, 20px);
-  width: fit-content;
-  height: fit-content;
-}
-
-.large-text {
-  font-size: 3rem;
-  line-height: 3rem;
-  width: fit-content;
-  height: fit-content;
-}
-
-.huge-text {
-  font-size: max(1rem, min(4cqw, 6cqh));
-  line-height: max(1rem, min(4cqw, 6cqh));
-  width: fit-content;
-  height: fit-content;
-}
-
 .text-fit {
-  font-size: max(1rem, min(4cqw, 6cqh));
-  line-height: max(1rem, min(4cqw, 6cqh));
+  font-size: max(1.2rem, min(4cqw, 6cqh));
+  line-height: max(1.2rem, min(4cqw, 6cqh));
   width: fit-content;
   height: fit-content;
 }
 
 .text-fit-sm {
-  font-size: min(.85rem, min(3cqw, 5cqh));
-  font-size: min(.85rem, min(3cqw, 5cqh));
+  font-size: min(1.2rem, min(3cqw, 5cqh));
+  font-size: min(1.2rem, min(3cqw, 5cqh));
   width: fit-content;
   height: fit-content;
 }

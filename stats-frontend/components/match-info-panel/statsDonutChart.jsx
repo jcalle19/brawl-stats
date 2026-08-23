@@ -28,8 +28,11 @@ const StatsDonutChart = ({title, labels, stats, colors, displayNum}) => {
 
   return (
     <div id='doughnut-chart-container' className='relative h-full pb-2 striped-bg'>
-        <Doughnut data={data} options={options}/>
-        <div id='display-percent' className='small-text absolute w-[50%] text-right right-0 bottom-0 pr-2'>{displayNum}</div>
+        <div className='relative-center h-full aspect-square'>
+            <Doughnut data={data} options={options}/>
+        </div>
+        
+        <div id='display-percent' className='text-fit-sm absolute-center text-right'>{displayNum}</div>
     </div>
   )
 }
