@@ -5,6 +5,8 @@ import MatchInfoPanel from '@/components/match-info-panel/matchInfoPanel'
 import SidePanelContainer from '@/components/side-panel/sidePanelContainer'
 import DefaultInfoPanel from '@/components/placeholder-components/defaultInfoPanel'
 import MobileInfoColumns from '@/components/mobile-view/mobileInfoColumns'
+import BlockPlane from '@/components/3d-components/blockPlane'
+import Block from '@/components/3d-components/block'
 
 const page = async ({params}) => {
     const resolvedParams = await params;
@@ -14,9 +16,11 @@ const page = async ({params}) => {
     data.reverse();
 
     return (
-        <div className='relative gap-0 w-full h-full'>
+        <div className='relative-center  gap-0 w-full h-full'>
             <SidePanelContainer data={data}/>
-            <DefaultInfoPanel/>
+            <BlockPlane width={'200px'} height={'200px'} xDeg={'55'} yDeg={'0'} zDeg={'55'}>
+                <Block blockHeight={'75px'}/>
+            </BlockPlane>
         </div>
   )
 }
