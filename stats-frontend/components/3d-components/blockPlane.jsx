@@ -1,13 +1,11 @@
 import React from 'react'
 import Block from '@/components/3d-components/block'
 
-const BlockPlane = ({children, width, height, xDeg, yDeg, zDeg}) => {
+const BlockPlane = ({children, xDeg, yDeg, zDeg}) => {
     return (
         <div
-            className="test-border transform-3d"
+            className="relative h-full w-full transform-3d"
             style={{
-                width,
-                height,
                 transform: `
                     rotateX(${xDeg}deg)
                     rotateY(${yDeg}deg)
