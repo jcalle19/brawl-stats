@@ -60,6 +60,10 @@ GridSection, GridSection * {
   background: radial-gradient(rgb(20, 20, 20));
 }
 
+.test-border {
+  border: 5px solid red;
+}
+
 .green {
   background-color: var(--uiGreen);
   border-radius: var(--ui-border-radius);

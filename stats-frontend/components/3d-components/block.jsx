@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Block = ({blockHeight, color}) => {
-    const topFace = `absolute red w-full h-full`;
+    const topFace = `absolute w-full h-full`;
     const leftFace = `absolute green `
 
   return (

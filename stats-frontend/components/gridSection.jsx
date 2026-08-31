@@ -2,7 +2,7 @@ import React from 'react'
 
 const GridSection = ({children, classes}) => {
   return (
-    <div className={`h-full w-full min-h-0 ${classes} overflow-auto`}>
+    <div className={`relative h-full w-full min-h-0 ${classes} transform-3d`}>
       {children}
     </div>
   )
