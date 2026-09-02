@@ -1,12 +1,14 @@
 import React from 'react'
 
-const Block = ({blockHeight, color}) => {
+const Block = ({children, blockHeight, color}) => {
     const topFace = `absolute w-full h-full`;
     const leftFace = `absolute green `
 
   return (
     <div className='ui-block absolute w-full h-full transform-3d pointer-events-auto test-border'>
-        <div className={`${color} absolute w-full h-full transform-3d`}></div>
+        <div className={`${color} absolute w-full h-full transform-3d overflow-hidden`}>
+            {children}
+        </div>
         <div id='left-face' className='absolute green' style={{
                 right: '100%',
                 transformOrigin: 'right',

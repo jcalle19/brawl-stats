@@ -11,7 +11,7 @@ const SidePanelContainer = ({data}) => {
     <div className={`
       ${!sidePanelOpen ? 'left-[-350px]' : 'left-0'}
       transition-left duration-200
-      absolute md:relative h-full w-[350px] grid grid-cols-[350px_50px]`}
+      absolute md:relative h-full w-[350px] grid grid-cols-[350px_50px] pointer-events-auto`}
     >
       <MatchContainer data={data} mobile={false}/>
       <PanelToggle/>
