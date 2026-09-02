@@ -7,9 +7,9 @@ const BlockPlane = ({children, xDeg, yDeg, zDeg}) => {
             className="relative h-full w-full transform-3d"
             style={{
                 transform: `
+                    rotateY(${zDeg}deg)
+                    rotateZ(${yDeg}deg)
                     rotateX(${xDeg}deg)
-                    rotateY(${yDeg}deg)
-                    rotateZ(${zDeg}deg)
                 `
             }}
         >

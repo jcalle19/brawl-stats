@@ -5,17 +5,17 @@ const Block = ({blockHeight, color}) => {
     const leftFace = `absolute green `
 
   return (
-    <div className='absolute w-full h-full transform-3d'>
-        <div className={`${color} ${topFace} transform-3d`}></div>
-        <div id='right-face' className='absolute green' style={{
-                left: '100%',
-                transformOrigin: 'left',
-                transform: `rotateY(90deg)`,
+    <div className='ui-block absolute w-full h-full transform-3d pointer-events-auto test-border'>
+        <div className={`${color} absolute w-full h-full transform-3d`}></div>
+        <div id='left-face' className='absolute green' style={{
+                right: '100%',
+                transformOrigin: 'right',
+                transform: `rotateY(-90deg)`,
                 width: blockHeight,
                 height: '100%',
             }}
         ></div>
-        <div id='left-face' className='absolute purple' style={{
+        <div id='front-face' className='absolute purple' style={{
                 top: '100%',
                 transformOrigin: 'top',
                 transform: `rotateX(-90deg)`,

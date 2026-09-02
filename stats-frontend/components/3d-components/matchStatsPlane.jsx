@@ -1,40 +1,30 @@
 import React from 'react'
 import BlockPlane from '@/components/3d-components/blockPlane'
 import Block from '@/components/3d-components/block'
-import GridSection from '../gridSection'
+import BrawlerBlockPlane from '@/components/3d-components/brawlerBlockPlane'
+import InfoBlockPlane from '@/components/3d-components/infoBlockPlane'
+import MapBlockPlane from '@/components/3d-components/mapBlockPlane'
+import GridSection from '@/components/gridSection'
 
-const MatchStatsPlane = ({xDeg, yDeg, zDeg}) => {
-  return (
-    <BlockPlane xDeg={xDeg} yDeg={yDeg} zDeg={zDeg}> 
-        <div className='w-[110%] h-[110%] grid grid-rows-[1fr_2fr_4fr] transform-3d'>
-            <GridSection classes={'grid grid-cols-[3fr_2fr]'}>
-                <GridSection classes={'grid grid-rows-2'}>
-                    <GridSection classes='test-border'></GridSection>
-                    <GridSection classes='test-border'></GridSection>
+const MatchStatsPlane = ({data}) => {
+    const xDeg = 55;
+    const radians = xDeg * Math.PI / 180;
+    const scale = 1 / Math.cos(radians);
+
+    return (
+        <div className='relative top-[10%] w-[95%] h-[90%] min-h-[90vh]'>
+            <GridSection classes={'grid grid-rows-[1fr_1fr_2fr]'}>
+                <GridSection classes=''>
+                    <InfoBlockPlane xDeg={xDeg} scaleFactor={scale}/>
                 </GridSection>
-                <div className='relative transform-3d w-full h-full'>
-                    <Block blockHeight={'10vmin'} color={'red'}/>
-                </div>
-            </GridSection>
-            <GridSection classes={'grid grid-cols-[1fr_3fr_2fr]'}>
-                <GridSection classes='test-border'></GridSection>
-                <GridSection classes={'grid grid-cols-3 grid-rows-2'}>
-                    <GridSection classes='test-border'></GridSection>
-                    <GridSection classes='test-border'></GridSection>
-                    <GridSection classes='test-border'></GridSection>
-                    <GridSection classes='test-border'></GridSection>
-                    <GridSection classes='test-border'></GridSection>
-                    <GridSection classes='test-border'></GridSection>
+                <GridSection classes='translate-z-500'>
+                    <BrawlerBlockPlane xDeg={xDeg} scaleFactor={scale}/>
                 </GridSection>
-                <GridSection classes='test-border'></GridSection>
-            </GridSection>
-            <GridSection classes='grid grid-cols-[1fr_3fr_2fr]'>
-                <GridSection classes='test-border'></GridSection>
-                <GridSection classes='test-border'></GridSection>
-                <GridSection classes='test-border'></GridSection>
+                <GridSection classes='translate-z-1000'>
+                    <MapBlockPlane xDeg={xDeg} scaleFactor={scale}/>
+                </GridSection>
             </GridSection>
         </div>
-    </BlockPlane>
   )
 }
 

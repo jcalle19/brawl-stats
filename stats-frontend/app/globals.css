@@ -41,12 +41,6 @@ body * {
   box-sizing: border-box;
 }
 
-ul {
-    list-style-type: disc;
-    padding: 10px 0 !important;
-    padding-left: 20px !important;
-    }
-
 GridSection, GridSection * {
   min-height: 0px;
 }
@@ -98,11 +92,6 @@ GridSection, GridSection * {
   transform: translate(-50%, -50%);
 }
 
-.vert-center {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
 /*Font Area*/
 .text-fit {
   font-size: max(1.2rem, min(4cqw, 6cqh));
@@ -118,7 +107,11 @@ GridSection, GridSection * {
   height: fit-content;
 }
 
-.square {
-  aspect-ratio: 1/1;
+.ui-block {
+  transition: transform .2s;
+}
+
+.ui-block:hover {
+  transform: translateZ(50px);
 }
 
