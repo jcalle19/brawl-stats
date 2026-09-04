@@ -18,7 +18,7 @@ const page = async ({params}) => {
             <SidePanelContainer data={data}/>
             <div className='relative w-full h-full tranform-3d grid grid-rows-2 md:grid-rows-1 md:grid-cols-[5fr_2fr] overflow-y-auto'>
                 <MatchStatsPlane data={data}/>
-                <div className='test-border'></div>
+                <div id='top-stats' className='test-border'></div>
             </div>
         </div>
   )

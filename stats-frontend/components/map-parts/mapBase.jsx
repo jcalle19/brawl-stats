@@ -1,6 +1,6 @@
 import {useRef, useEffect} from 'react'
 import { maps } from '@/public/matchURLMap.js'
-import MapImages from '@/components/mapImages.jsx'
+import MapImages from '@/components/map-parts/mapImages.jsx'
 import '@/css/mapParts.css'
 
 const MapBase = ({selectedMap}) => {
@@ -36,12 +36,13 @@ const MapBase = ({selectedMap}) => {
   return (
     <div 
       id='map-base-parent'
+      className='transform-3d'
       ref={rotateRefParent}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove} 
       onMouseLeave={handleMouseExit}
     >
-      <div className='w-full h-full' ref={rotateRef} style={{transformOrigin: 'center'}}>
+      <div className='h-full transform-3d' ref={rotateRef} style={{transformOrigin: 'center'}}>
         <div className='map-component' id='map-base'></div>
         <MapImages src={maps[selectedMap]} width={'98%'} height={'98%'} size={'20vw'}/>
       </div>

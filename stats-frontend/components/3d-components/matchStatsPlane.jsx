@@ -13,16 +13,16 @@ const MatchStatsPlane = ({data}) => {
     const scale = 1 / Math.cos(radians).toFixed(5);
 
     return (
-        <div className='relative top-[10%] w-[95%] h-[90%] min-h-[90vh]'>
+        <div className='relative top-[10%] left-[10%] w-[90%] h-[90%] min-h-[90vh]'>
             <GridSection classes={'grid grid-rows-[1fr_1fr_2fr]'}>
                 <GridSection classes=''>
-                    <InfoBlockPlane xDeg={xDeg} scaleFactor={scale}/>
+                    <InfoBlockPlane selected={selectedMatch} xDeg={xDeg} scaleFactor={scale}/>
                 </GridSection>
                 <GridSection classes='translate-z-500'>
                     <BrawlerBlockPlane selected={selectedMatch} xDeg={xDeg} scaleFactor={scale}/>
                 </GridSection>
                 <GridSection classes='translate-z-1000'>
-                    <MapBlockPlane xDeg={xDeg} scaleFactor={scale}/>
+                    <MapBlockPlane selected={selectedMatch} xDeg={xDeg} scaleFactor={scale}/>
                 </GridSection>
             </GridSection>
         </div>

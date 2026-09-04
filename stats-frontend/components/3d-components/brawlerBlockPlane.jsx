@@ -38,16 +38,18 @@ const BrawlerBlockPlane = ({selected, xDeg, scaleFactor}) => {
                 </div>
                 <div className='relative transform-3d'><Block blockHeight={'75px'} color={'green'}/>
                     <Block blockHeight={'75px'} color={'red'}>
-                        <BrawlerPortraits src={portraitURLs[selected?.enemy2.brawler.name]} size={'10vw'} overflow={'true'}/>
+                        <BrawlerPortraits src={portraitURLs[selected?.enemy2?.brawler.name]} size={'10vw'} overflow={'true'}/>
                     </Block>
                 </div>
                 <div className='relative transform-3d'><Block blockHeight={'75px'} color={'red'}/>
                     <Block blockHeight={'75px'} color={'red'}>
-                        <BrawlerPortraits src={portraitURLs[selected?.enemy3.brawler.name]} size={'10vw'} overflow={'true'}/>
+                        <BrawlerPortraits src={portraitURLs[selected?.enemy3?.brawler.name]} size={'10vw'} overflow={'true'}/>
                     </Block>
                 </div>
             </div>
-            <div className='relative transform-3d'><Block blockHeight={'75px'} color={'orange'}/></div>
+            <div className='relative transform-3d'>
+                <Block blockHeight={'75px'} color={'orange'}/>
+            </div>
         </div>
     </BlockPlane>
   )
