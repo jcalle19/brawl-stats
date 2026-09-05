@@ -14,7 +14,7 @@ const MatchStatsPlane = ({data}) => {
 
     return (
         <div className='relative top-[10%] left-[10%] w-[90%] h-[90%] min-h-[90vh]'>
-            <GridSection classes={'grid grid-rows-[1fr_1fr_2fr]'}>
+            <GridSection classes={'grid grid-rows-[1fr_1fr_2fr] gap-5'}>
                 <GridSection classes=''>
                     <InfoBlockPlane selected={selectedMatch} xDeg={xDeg} scaleFactor={scale}/>
                 </GridSection>

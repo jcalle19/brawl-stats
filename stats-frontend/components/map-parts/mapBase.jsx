@@ -32,9 +32,8 @@ const MapBase = ({selectedMap}) => {
     const handleMouseExit = () => {
         rotateRef.current.style.transform = transformBefore.current;
     }
-  //<div className='map-component' id='map-image'></div>
-  return (
-    <div 
+  /*
+  <div 
       id='map-base-parent'
       className='transform-3d'
       ref={rotateRefParent}
@@ -42,6 +41,9 @@ const MapBase = ({selectedMap}) => {
       onMouseMove={handleMouseMove} 
       onMouseLeave={handleMouseExit}
     >
+  */
+  return (
+    <div id='map-base-parent' className='transform-3d'>
       <div className='h-full transform-3d' ref={rotateRef} style={{transformOrigin: 'center'}}>
         <div className='map-component' id='map-base'></div>
         <MapImages src={maps[selectedMap]} width={'98%'} height={'98%'} size={'20vw'}/>

@@ -21,27 +21,27 @@ const BrawlerBlockPlane = ({selected, xDeg, scaleFactor}) => {
                         <BrawlerPortraits src={portraitURLs[selected?.brawler]} size={'10vw'} overflow={'true'}/>
                     </Block>
                 </div>
-                <div className='relative transform-3d'><Block blockHeight={'75px'} color={'red'}/>
+                <div className='relative transform-3d'>
                     <Block blockHeight={'75px'} color={'red'}>
                         <BrawlerPortraits src={portraitURLs[selected?.team1?.brawler.name]} size={'10vw'} overflow={'true'}/>
                     </Block>
                 </div>
-                <div className='relative transform-3d'><Block blockHeight={'75px'} color={'green'}/>
+                <div className='relative transform-3d'>
                     <Block blockHeight={'75px'} color={'red'}>
                         <BrawlerPortraits src={portraitURLs[selected?.team2?.brawler.name]} size={'10vw'} overflow={'true'}/>
                     </Block>
                 </div>
-                <div className='relative transform-3d'><Block blockHeight={'75px'} color={'red'}/>
+                <div className='relative transform-3d'>
                     <Block blockHeight={'75px'} color={'red'}>
                         <BrawlerPortraits src={portraitURLs[selected?.enemy1?.brawler.name]} size={'10vw'} overflow={'true'}/>
                     </Block>
                 </div>
-                <div className='relative transform-3d'><Block blockHeight={'75px'} color={'green'}/>
+                <div className='relative transform-3d'>
                     <Block blockHeight={'75px'} color={'red'}>
                         <BrawlerPortraits src={portraitURLs[selected?.enemy2?.brawler.name]} size={'10vw'} overflow={'true'}/>
                     </Block>
                 </div>
-                <div className='relative transform-3d'><Block blockHeight={'75px'} color={'red'}/>
+                <div className='relative transform-3d'>
                     <Block blockHeight={'75px'} color={'red'}>
                         <BrawlerPortraits src={portraitURLs[selected?.enemy3?.brawler.name]} size={'10vw'} overflow={'true'}/>
                     </Block>
